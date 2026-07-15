@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presenças | Presence Guard</title>
+    <link rel="stylesheet" href="style/presenca.css">
+</head>
+<body>
+
+    <main>
+        <header>
+            <nav>
+                 <h1>PCC</h1>
+                <ul>
+                    <li><a href="index.html">Painel</a></li>
+                    <li><a href="presenca.html">Presença</a></li>
+                    <li><a href="calendario.html">Calendário</a></li>
+                    <li><a href="relatorio.html">Relatório</a></li>
+                    <li><a href="config.html">Configurações</a></li>
+                </ul>
+             </nav>
+
+             <div class="corpo">
+             <div class="cabecalho">
+                 <div class="c">
+                     <input type="text" placeholder="Pesquisar">
+                     <button>Login</button>
+                 </div>
+             </div>
+
+            
+             <table class="table-presencas">
+                 <thead>
+                     <tr>
+                         <th>Aluno</th>
+                         <th>Turma</th>
+                         <th>Cartão</th>
+                         <th>Entrada</th>
+                         <th>Saída</th>
+                         <th>Status</th>
+                         <th>Ações</th>
+                     </tr>
+                 </thead>
+                 <tbody>
+                     <tr>
+                        <td>João Silvestre</td>
+                        <td>9ª A</td>
+                        <td>#1245</td>
+                        <td>07:32</td>
+                        <td>12:15</td>
+                        <td><span class="status-presente">Presente</span></td>
+                        <td>
+                            <button class="btn-ver">Ver</button>
+                            <button class="btn-edt">Editar</button>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>Joana Silvestre</td>
+                        <td>8ª A</td>
+                        <td>#1355</td>
+                        <td>07:20</td>
+                        <td>12:30</td>
+                        <td><span class="status-ausente">Ausente</span></td>
+                        <td class="acoes">
+                            <button class="btn-ver">Ver</button>
+                            <button class="btn-edt">Editar</button>
+                        </td>
+                     </tr>
+                 </tbody>
+             </table>
+        </header>
+    </main>
+    
+</body>
+</html>
