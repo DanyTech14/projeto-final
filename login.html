@@ -8,17 +8,26 @@
     <link rel="stylesheet" href="style/style.css">
 </head>
 <body>
-    <div class="login">
-        <h1>Login</h1>
-        <div class="inputs">
-            <label>Nome</label>
-            <input type="text" placeholder="Digite o seu nome ">
-        </div>
-        <div class="inputs">
-            <label>Email</label>
-            <input type="email" placeholder="Digite o seu email">
-        </div>
-        <button>Login</button>
-    </div>
+    <main class="login-page">
+        <section class="login-card" aria-labelledby="login-title">
+            <div class="login-brand">Presence Guard</div>
+            <h1 id="login-title">Login</h1>
+            <p>Acesso do encarregado</p>
+
+            <form class="login-form" action="index.html">
+                <div class="field">
+                    <label for="email">Email</label>
+                    <input id="email" type="email" placeholder="Digite o seu email" autocomplete="email" required>
+                </div>
+
+                <div class="field">
+                    <label for="password">Senha</label>
+                    <input id="password" type="password" placeholder="Digite a sua senha" autocomplete="current-password" minlength="6" required>
+                </div>
+
+                <button type="submit">Entrar</button>
+            </form>
+        </section>
+    </main>
 </body>
 </html>
