@@ -3,30 +3,32 @@
     padding: 0;
 }
 body{
-    font-family: Arial, Helvetica, sans-serif;
     display: flex;
-    background: #f2f2f2;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f7fa;
   
 }
 header{
     display: flex;
     justify-content: space-between;
 }
+.corpo {
+    flex: 1;
+    padding: 40px 50px;
+}
 
-.cabecalho{
-    margin-left: 230px;
-    margin-bottom: 780px;
-    display: flex;
-    justify-content: flex-start;
+.cabecalho {
+    margin-bottom: 40px;
 }
 .cabecalho .c{
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 250px;
+    width: 115%;
 }
 .cabecalho input{
-    height: 40px;
     width: 350px;
+    height: 40px;
     padding: 0 15px;
     border: 1px solid #d6d6d6;
     border-radius: 8px;
@@ -42,22 +44,28 @@ header{
 .cabecalho input::placeholder{
     color: #9b9b9b;
 }
-.btn-perfil{
-    border: none;
-    text-decoration: none;
-    transition: all .3s ease;
-    cursor: pointer;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    background: #1a3341;
-    color: burlywood;
-    font-size: 22px;
-    font-weight: 700;
+.btn-perfil {
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 45px;
+    height: 45px;
+    border: none;
+    border-radius: 50%;
+    background: #1a3341;
+    color: burlywood;
+    text-decoration: none;
+    font-size: 22px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all .3s ease;
 }
-.main{
+
+.btn-perfil:hover {
+    transform: scale(1.08);
+    background: #244759;
+}
+
+main{
     display: flex;
 }

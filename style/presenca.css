@@ -3,30 +3,32 @@
     padding: 0;
 }
 body{
-    font-family: Arial, Helvetica, sans-serif;
     display: flex;
-    background: #f2f2f2;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f7fa;
   
 }
 header{
     display: flex;
     justify-content: space-between;
 }
+.corpo {
+    flex: 1;
+    padding: 40px 50px;
+}
 
-.cabecalho{
-    margin-left: 230px;
-    margin-top: 40px;
-    display: flex;
-    justify-content: flex-start;
+.cabecalho {
+    margin-bottom: 40px;
 }
 .cabecalho .c{
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 250px;
+    width: 115%;
 }
 .cabecalho input{
-    height: 40px;
     width: 350px;
+    height: 40px;
     padding: 0 15px;
     border: 1px solid #d6d6d6;
     border-radius: 8px;
@@ -42,53 +44,54 @@ header{
 .cabecalho input::placeholder{
     color: #9b9b9b;
 }
-.btn-perfil{
-    border: none;
-    text-decoration: none;
-    transition: all .3s ease;
-    cursor: pointer;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    background: #1a3341;
-    color: burlywood;
-    font-size: 22px;
-    font-weight: 700;
+.btn-perfil {
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 45px;
+    height: 45px;
+    border: none;
+    border-radius: 50%;
+    background: #1a3341;
+    color: burlywood;
+    text-decoration: none;
+    font-size: 22px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all .3s ease;
+}
+
+.btn-perfil:hover {
+    transform: scale(1.08);
+    background: #244759;
 }
 
 main{
     display: flex;
-    width: 100%;
 }
 
 .table-presencas{
-    margin-left: 95px;
-    margin-top: 100px;
-    width: 92%;
-    max-width: 1100px;
+    width: 100%;
     border-collapse: collapse;
     background: #ffffff;
-    border-radius: 12px;
+    border-radius: 18px;
     overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, .08);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
     font-size: 14px;
 }
 
 .table-presencas thead{
-    background: #1e293b;
+    background: #243145;
     color: #ffffff;
 
 }
 .table-presencas th{
-    padding: 14px 16px;
+    padding: 18px 16px;
     text-align: left;
     font-weight: 600;
-    font-size: 13px;
+    font-size: 12px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
     border-bottom: 2px solid #0f172a;
     white-space: nowrap;
     overflow: hidden;
@@ -119,20 +122,21 @@ main{
     border-bottom: none;
 }
 .table-presencas td{
-    padding: 14px 16px;
+    padding: 18px 16px;
     vertical-align: middle;
     color: #1e293b;
 }
 
 .table-presencas td:first-child{
     font-weight: 600;
-    color: #94a3b8;
-    font-size: 13px;
+    color: #1a3341;
+    font-size: 15px;
+    font-weight: 600;
     width: 40px;
 }
 .table-presencas td:nth-child(2){
     font-weight: 600;
-    color: #0f172a;
+    color: #475569;
 }
 .table-presencas td:nth-child(3){
     color: #475569;
@@ -175,16 +179,17 @@ button{
     transition: .3s ease;
 }
 
-.table-presencas td .acoes{
+.acoes{
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 15px;
+    gap: 12px;
     height: 100%;
 }
 
 .table-presencas button{
-    min-width: 68px;
+    width: 80px;
+    height: 36px;
     padding: 8px 14px;
     border-radius: 6px;
     font-size: 12px;
@@ -216,4 +221,65 @@ button{
     background: #c89d64;
     transform: translateY(-2px);
     box-shadow: 0 6px 14px rgba(222, 184, 135, .45);
+}
+.resumo{
+    display: flex;
+    gap: 30px;
+    margin-bottom: 35px;
+}
+.card-resumo{
+    padding: 22px;
+    background: #fff;
+    border-radius: 18px;
+    border: 1px solid #ececec;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .06);
+    transition: .3s;
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+}
+.card-resumo::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: burlywood;
+}
+.card-resumo:hover{
+    transform: translateY(-5px);
+}
+.card-resumo h3{
+    color: #6b7280;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+.card-resumo span{
+    font-size: 46px;
+    font-weight: bold;
+    color: #1a3341;
+}
+.filtros{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 35px;
+}
+.filtros select,
+.filtros input{
+    height: 45px;
+    min-width: 170px;
+    font-size: 14px;
+    padding: 0 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: white;
+    outline: none;
+}
+.filtros select:focus,
+.filtros input:focus{
+    border-color: burlywood;
+    box-shadow: 0 0 0 3px rgba(222, 184, 135, .25);
 }
