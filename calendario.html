@@ -22,14 +22,127 @@
                 </ul>
             </nav>
 
-           
-            <div class="cabecalho">
-                <div class="c">
-                    <input type="text" placeholder="Pesquisar">
-                    <a href="perfil.html" class="btn-perfil">JS</a>
+            <div class="corpo">
+                <div class="cabecalho">
+                    <div class="c c-sem-pesquisa">
+                        <a href="config.html" class="btn-perfil">JS</a>
+                    </div>
                 </div>
+
+                <div class="titulo-pagina">
+                    <h2>Calendário de Presença</h2>
+                    <p>Veja rapidamente os dias com faltas ou atrasos de cada educando.</p>
+                </div>
+
+                <div class="seletor-educandos" role="tablist" aria-label="Filtrar por educando">
+                    <button class="pill pill-ativa" role="tab" aria-selected="true">
+                        <span class="pill-dot pill-dot-todos"></span> Todos
+                    </button>
+                    <button class="pill" role="tab" aria-selected="false">
+                        <span class="pill-dot" style="background:#2d5064">JS</span> João
+                    </button>
+                    <button class="pill" role="tab" aria-selected="false">
+                        <span class="pill-dot" style="background:#a15b8f">JS</span> Joana
+                    </button>
+                    <button class="pill" role="tab" aria-selected="false">
+                        <span class="pill-dot" style="background:#4a7c59">RS</span> Rafael
+                    </button>
+                </div>
+
+                <div class="calendario-card">
+
+                    <div class="calendario-topo">
+                        <div class="mes-nav">
+                            <button class="mes-btn" aria-label="Mês anterior">‹</button>
+                            <h3>Julho 2026</h3>
+                            <button class="mes-btn" aria-label="Mês seguinte">›</button>
+                        </div>
+                        <div class="legenda">
+                            <span><i class="ponto ponto-presente"></i> Presente</span>
+                            <span><i class="ponto ponto-atraso"></i> Atraso</span>
+                            <span><i class="ponto ponto-falta"></i> Falta</span>
+                            <span><i class="ponto ponto-vazio"></i> Sem registo</span>
+                        </div>
+                    </div>
+
+                    <div class="grelha-dias-semana">
+                        <span>Dom</span><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span>
+                    </div>
+
+                    <div class="grelha-calendario">
+                        <div class="dia dia-vazia"></div>
+                        <div class="dia dia-vazia"></div>
+                        <div class="dia dia-vazia"></div>
+                        <div class="dia dia-letivo"><span class="numero">1</span><i class="ponto ponto-presente"></i></div>
+                        <div class="dia dia-letivo"><span class="numero">2</span><i class="ponto ponto-presente"></i></div>
+                        <div class="dia dia-letivo"><span class="numero">3</span><i class="ponto ponto-atraso"></i></div>
+                        <div class="dia dia-fds"><span class="numero">4</span></div>
+
+                        <div class="dia dia-fds"><span class="numero">5</span></div>
+                        <div class="dia dia-letivo"><span class="numero">6</span><i class="ponto ponto-presente"></i></div>
+                        <div class="dia dia-letivo"><span class="numero">7</span><i class="ponto ponto-presente"></i></div>
+                        <div class="dia dia-letivo"><span class="numero">8</span><i class="ponto ponto-presente"></i></div>
+                        <div class="dia dia-letivo"><span class="numero">9</span><i class="ponto ponto-falta"></i></div>
+                        <div class="dia dia-letivo"><span class="numero">10</span><i class="ponto ponto-presente"></i></div>
+                        <div class="dia dia-fds"><span class="numero">11</span></div>
+
+                        <div class="dia dia-fds"><span class="numero">12</span></div>
+                        <div class="dia dia-letivo"><span class="numero">13</span><i class="ponto ponto-falta"></i></div>
+                        <div class="dia dia-letivo"><span class="numero">14</span><i class="ponto ponto-presente"></i></div>
+                        <div class="dia dia-letivo dia-selecionado"><span class="numero">15</span><i class="ponto ponto-atraso"></i></div>
+                        <div class="dia dia-letivo dia-hoje"><span class="numero">16</span><i class="ponto ponto-presente"></i></div>
+                        <div class="dia dia-letivo"><span class="numero">17</span><i class="ponto ponto-vazio"></i></div>
+                        <div class="dia dia-fds"><span class="numero">18</span></div>
+
+                        <div class="dia dia-fds"><span class="numero">19</span></div>
+                        <div class="dia dia-letivo"><span class="numero">20</span><i class="ponto ponto-vazio"></i></div>
+                        <div class="dia dia-letivo"><span class="numero">21</span><i class="ponto ponto-vazio"></i></div>
+                        <div class="dia dia-letivo"><span class="numero">22</span><i class="ponto ponto-vazio"></i></div>
+                        <div class="dia dia-letivo"><span class="numero">23</span><i class="ponto ponto-vazio"></i></div>
+                        <div class="dia dia-letivo"><span class="numero">24</span><i class="ponto ponto-vazio"></i></div>
+                        <div class="dia dia-fds"><span class="numero">25</span></div>
+
+                        <div class="dia dia-fds"><span class="numero">26</span></div>
+                        <div class="dia dia-letivo"><span class="numero">27</span><i class="ponto ponto-vazio"></i></div>
+                        <div class="dia dia-letivo"><span class="numero">28</span><i class="ponto ponto-vazio"></i></div>
+                        <div class="dia dia-letivo"><span class="numero">29</span><i class="ponto ponto-vazio"></i></div>
+                        <div class="dia dia-letivo"><span class="numero">30</span><i class="ponto ponto-vazio"></i></div>
+                        <div class="dia dia-letivo"><span class="numero">31</span><i class="ponto ponto-vazio"></i></div>
+                        <div class="dia dia-vazia"></div>
+                    </div>
+                </div>
+
+                <div class="detalhe-dia">
+                    <h3>Detalhes de 15 de Julho</h3>
+                    <div class="detalhe-lista">
+                        <div class="detalhe-item">
+                            <span class="avatar" style="background:#e4ecf1; color:#2d5064">JS</span>
+                            <div class="detalhe-info">
+                                <strong>João Silvestre</strong>
+                                <span>07:41 · 12:18</span>
+                            </div>
+                            <span class="status-atraso">Atraso</span>
+                        </div>
+                        <div class="detalhe-item">
+                            <span class="avatar" style="background:#f2e6ef; color:#a15b8f">JS</span>
+                            <div class="detalhe-info">
+                                <strong>Joana Silvestre</strong>
+                                <span>07:22 · 12:29</span>
+                            </div>
+                            <span class="status-presente">Presente</span>
+                        </div>
+                        <div class="detalhe-item">
+                            <span class="avatar" style="background:#e6efe8; color:#4a7c59">RS</span>
+                            <div class="detalhe-info">
+                                <strong>Rafael Silvestre</strong>
+                                <span>07:19 · 12:12</span>
+                            </div>
+                            <span class="status-presente">Presente</span>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-            </nav>
         </header>
     </main>
 </body>

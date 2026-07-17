@@ -22,14 +22,149 @@
                 </ul>
             </nav>
 
-           
-            <div class="cabecalho">
-                <div class="c">
-                    <input type="text" placeholder="Pesquisar">
-                    <a href="perfil.html" class="btn-perfil">JS</a>
+            <div class="corpo">
+                <div class="cabecalho">
+                    <div class="c c-sem-pesquisa">
+                        <span class="btn-perfil btn-perfil-atual" aria-current="page" title="Está aqui">JS</span>
+                    </div>
+                </div>
+
+                <div class="titulo-pagina">
+                    <h2>Configurações</h2>
+                    <p>Gira o seu perfil, os educandos associados e as notificações que recebe.</p>
+                </div>
+
+                <div class="grelha-config">
+
+                    <section class="painel-config">
+                        <h3>Perfil do encarregado</h3>
+                        <div class="perfil-editor">
+                            <span class="avatar-grande">JS</span>
+                            <div class="perfil-editor-acoes">
+                                <button class="btn-secundario">Alterar foto</button>
+                                <p>PNG ou JPG, até 2MB</p>
+                            </div>
+                        </div>
+                        <div class="form-grelha">
+                            <div class="campo">
+                                <label for="nome">Nome completo</label>
+                                <input type="text" id="nome" value="Joana Santos">
+                            </div>
+                            <div class="campo">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" value="joana.santos@email.com">
+                            </div>
+                            <div class="campo">
+                                <label for="telefone">Telefone</label>
+                                <input type="tel" id="telefone" value="+244 923 000 000">
+                            </div>
+                            <div class="campo">
+                                <label for="parentesco">Parentesco</label>
+                                <select id="parentesco">
+                                    <option>Encarregado de educação</option>
+                                    <option>Mãe</option>
+                                    <option>Pai</option>
+                                    <option>Tutor legal</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button class="btn-guardar">Guardar alterações</button>
+                    </section>
+
+                    <section class="painel-config">
+                        <h3>Educandos associados</h3>
+                        <div class="lista-educandos">
+                            <div class="educando-item">
+                                <span class="avatar" style="background:#e4ecf1; color:#2d5064">JS</span>
+                                <div class="educando-info">
+                                    <strong>João Silvestre</strong>
+                                    <span>9ª A · Cartão #1245</span>
+                                </div>
+                                <button class="btn-remover" aria-label="Remover João Silvestre">Remover</button>
+                            </div>
+                            <div class="educando-item">
+                                <span class="avatar" style="background:#f2e6ef; color:#a15b8f">JS</span>
+                                <div class="educando-info">
+                                    <strong>Joana Silvestre</strong>
+                                    <span>8ª A · Cartão #1355</span>
+                                </div>
+                                <button class="btn-remover" aria-label="Remover Joana Silvestre">Remover</button>
+                            </div>
+                            <div class="educando-item">
+                                <span class="avatar" style="background:#e6efe8; color:#4a7c59">RS</span>
+                                <div class="educando-info">
+                                    <strong>Rafael Silvestre</strong>
+                                    <span>5ª A · Cartão #1322</span>
+                                </div>
+                                <button class="btn-remover" aria-label="Remover Rafael Silvestre">Remover</button>
+                            </div>
+                        </div>
+                        <button class="btn-secundario btn-adicionar">+ Adicionar educando</button>
+                    </section>
+
+                    <section class="painel-config">
+                        <h3>Notificações</h3>
+                        <div class="lista-toggles">
+                            <div class="toggle-item">
+                                <div>
+                                    <strong>Alertar em caso de falta</strong>
+                                    <p>Receber notificação assim que uma falta for registada</p>
+                                </div>
+                                <label class="toggle">
+                                    <input type="checkbox" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="toggle-item">
+                                <div>
+                                    <strong>Alertar em caso de atraso</strong>
+                                    <p>Receber notificação quando houver um atraso na entrada</p>
+                                </div>
+                                <label class="toggle">
+                                    <input type="checkbox" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="toggle-item">
+                                <div>
+                                    <strong>Resumo semanal por email</strong>
+                                    <p>Um resumo da assiduidade de todos os educandos, toda segunda-feira</p>
+                                </div>
+                                <label class="toggle">
+                                    <input type="checkbox">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="toggle-item">
+                                <div>
+                                    <strong>Notificações por SMS</strong>
+                                    <p>Além do email, receber também um SMS em alertas urgentes</p>
+                                </div>
+                                <label class="toggle">
+                                    <input type="checkbox">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="painel-config">
+                        <h3>Segurança</h3>
+                        <div class="form-grelha">
+                            <div class="campo">
+                                <label for="senha-atual">Senha atual</label>
+                                <input type="password" id="senha-atual" placeholder="••••••••">
+                            </div>
+                            <div class="campo">
+                                <label for="senha-nova">Nova senha</label>
+                                <input type="password" id="senha-nova" placeholder="••••••••">
+                            </div>
+                        </div>
+                        <button class="btn-guardar">Atualizar senha</button>
+                    </section>
+
                 </div>
             </div>
-            </nav>
         </header>
     </main>
 </body>

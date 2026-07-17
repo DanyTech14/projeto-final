@@ -22,14 +22,157 @@
                 </ul>
             </nav>
 
-           
-            <div class="cabecalho">
-                <div class="c">
-                    <input type="text" placeholder="Pesquisar">
-                    <a href="perfil.html" class="btn-perfil">JS</a>
+            <div class="corpo">
+                <div class="cabecalho">
+                    <div class="c">
+                        <input type="text" placeholder="Pesquisar">
+                        <a href="config.html" class="btn-perfil">JS</a>
+                    </div>
+                </div>
+
+                <div class="titulo-pagina">
+                    <div>
+                        <h2>Relatório de Frequência</h2>
+                        <p>Consulte o histórico de presença dos seus educandos e exporte quando precisar.</p>
+                    </div>
+                    <button class="btn-exportar">⬇ Exportar PDF</button>
+                </div>
+
+                <div class="seletor-educandos" role="tablist" aria-label="Filtrar por educando">
+                    <button class="pill pill-ativa" role="tab" aria-selected="true">
+                        <span class="pill-dot pill-dot-todos"></span> Todos
+                    </button>
+                    <button class="pill" role="tab" aria-selected="false">
+                        <span class="pill-dot" style="background:#2d5064">JS</span> João
+                    </button>
+                    <button class="pill" role="tab" aria-selected="false">
+                        <span class="pill-dot" style="background:#a15b8f">JS</span> Joana
+                    </button>
+                    <button class="pill" role="tab" aria-selected="false">
+                        <span class="pill-dot" style="background:#4a7c59">RS</span> Rafael
+                    </button>
+                </div>
+
+                <div class="resumo">
+                    <div class="card-resumo card-ouro">
+                        <h3>Presença geral</h3>
+                        <span>94%</span>
+                        <p>19 de 20 dias letivos</p>
+                    </div>
+                    <div class="card-resumo card-laranja">
+                        <h3>Atrasos</h3>
+                        <span>3</span>
+                        <p>Este mês</p>
+                    </div>
+                    <div class="card-resumo card-vermelho">
+                        <h3>Faltas</h3>
+                        <span>1</span>
+                        <p>1 por justificar</p>
+                    </div>
+                </div>
+
+                <div class="filtros">
+                    <select aria-label="Filtrar por período">
+                        <option>Julho 2026</option>
+                        <option>Junho 2026</option>
+                        <option>Maio 2026</option>
+                        <option>Ano letivo 2025/2026</option>
+                    </select>
+                    <select aria-label="Filtrar por turma">
+                        <option>Todas as turmas</option>
+                        <option>9ª A</option>
+                        <option>8ª A</option>
+                        <option>5ª A</option>
+                    </select>
+                    <select aria-label="Filtrar por estado">
+                        <option>Todos os estados</option>
+                        <option>Presente</option>
+                        <option>Atraso</option>
+                        <option>Falta</option>
+                    </select>
+                </div>
+
+                <div class="tabela-wrapper">
+                    <table class="table-relatorio">
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Aluno</th>
+                                <th>Turma</th>
+                                <th>Entrada</th>
+                                <th>Saída</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>16/07/2026</td>
+                                <td class="aluno-cel"><span class="avatar" style="background:#e4ecf1; color:#2d5064">JS</span>João Silvestre</td>
+                                <td>9ª A</td>
+                                <td>07:32</td>
+                                <td>12:15</td>
+                                <td><span class="status-presente">Presente</span></td>
+                            </tr>
+                            <tr>
+                                <td>16/07/2026</td>
+                                <td class="aluno-cel"><span class="avatar" style="background:#f2e6ef; color:#a15b8f">JS</span>Joana Silvestre</td>
+                                <td>8ª A</td>
+                                <td>--</td>
+                                <td>--</td>
+                                <td><span class="status-falta">Falta</span></td>
+                            </tr>
+                            <tr>
+                                <td>16/07/2026</td>
+                                <td class="aluno-cel"><span class="avatar" style="background:#e6efe8; color:#4a7c59">RS</span>Rafael Silvestre</td>
+                                <td>5ª A</td>
+                                <td>07:20</td>
+                                <td>12:10</td>
+                                <td><span class="status-presente">Presente</span></td>
+                            </tr>
+                            <tr>
+                                <td>15/07/2026</td>
+                                <td class="aluno-cel"><span class="avatar" style="background:#e4ecf1; color:#2d5064">JS</span>João Silvestre</td>
+                                <td>9ª A</td>
+                                <td>07:41</td>
+                                <td>12:18</td>
+                                <td><span class="status-atraso">Atraso</span></td>
+                            </tr>
+                            <tr>
+                                <td>15/07/2026</td>
+                                <td class="aluno-cel"><span class="avatar" style="background:#f2e6ef; color:#a15b8f">JS</span>Joana Silvestre</td>
+                                <td>8ª A</td>
+                                <td>07:22</td>
+                                <td>12:29</td>
+                                <td><span class="status-presente">Presente</span></td>
+                            </tr>
+                            <tr>
+                                <td>14/07/2026</td>
+                                <td class="aluno-cel"><span class="avatar" style="background:#e6efe8; color:#4a7c59">RS</span>Rafael Silvestre</td>
+                                <td>5ª A</td>
+                                <td>07:18</td>
+                                <td>12:11</td>
+                                <td><span class="status-presente">Presente</span></td>
+                            </tr>
+                            <tr>
+                                <td>13/07/2026</td>
+                                <td class="aluno-cel"><span class="avatar" style="background:#e4ecf1; color:#2d5064">JS</span>João Silvestre</td>
+                                <td>9ª A</td>
+                                <td>--</td>
+                                <td>--</td>
+                                <td><span class="status-falta">Falta</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="paginacao">
+                    <span>A mostrar 7 de 58 registos</span>
+                    <div class="paginacao-botoes">
+                        <button class="pg-btn" disabled>‹ Anterior</button>
+                        <button class="pg-btn">Seguinte ›</button>
+                    </div>
                 </div>
             </div>
-            </nav>
         </header>
     </main>
 </body>

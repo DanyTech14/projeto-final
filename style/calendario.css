@@ -1,12 +1,12 @@
 *{
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 body{
     display: flex;
     font-family: Arial, Helvetica, sans-serif;
     background: #f5f7fa;
-  
 }
 header{
     display: flex;
@@ -14,17 +14,20 @@ header{
 }
 .corpo {
     flex: 1;
-    padding: 40px 50px;
+    padding: 40px 50px 60px;
 }
 
 .cabecalho {
-    margin-bottom: 40px;
+    margin-bottom: 32px;
 }
 .cabecalho .c{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 115%;
+    width: 100%;
+}
+.c-sem-pesquisa{
+    justify-content: flex-end;
 }
 .cabecalho input{
     width: 350px;
@@ -60,7 +63,6 @@ header{
     cursor: pointer;
     transition: all .3s ease;
 }
-
 .btn-perfil:hover {
     transform: scale(1.08);
     background: #244759;
@@ -69,3 +71,277 @@ header{
 main{
     display: flex;
 }
+
+/* Título da página */
+.titulo-pagina{
+    margin-bottom: 26px;
+}
+.titulo-pagina h2{
+    font-size: 26px;
+    color: #1a3341;
+    margin-bottom: 6px;
+}
+.titulo-pagina p{
+    font-size: 14px;
+    color: #6b7280;
+}
+
+/* Seletor de educandos */
+.seletor-educandos{
+    display: flex;
+    gap: 12px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+}
+.pill{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 18px 9px 10px;
+    border-radius: 999px;
+    border: 1px solid #dbe1e6;
+    background: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    color: #475569;
+    cursor: pointer;
+    transition: .25s ease;
+}
+.pill:hover{
+    border-color: burlywood;
+}
+.pill-dot{
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    color: #fff;
+}
+.pill-dot-todos{
+    background: #1a3341;
+    width: 10px;
+    height: 10px;
+    margin: 0 7px;
+}
+.pill-ativa{
+    background: #1a3341;
+    border-color: #1a3341;
+    color: #fff;
+}
+
+/* Cartão do calendário */
+.calendario-card{
+    background: #fff;
+    border-radius: 18px;
+    border: 1px solid #ececec;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+    padding: 26px 28px;
+    margin-bottom: 30px;
+}
+
+.calendario-topo{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+.mes-nav{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.mes-nav h3{
+    font-size: 19px;
+    color: #1a3341;
+    min-width: 130px;
+    text-align: center;
+}
+.mes-btn{
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1px solid #dbe1e6;
+    background: #fff;
+    color: #475569;
+    font-size: 16px;
+    cursor: pointer;
+    transition: .25s ease;
+}
+.mes-btn:hover{
+    border-color: burlywood;
+    color: #1a3341;
+}
+
+.legenda{
+    display: flex;
+    gap: 18px;
+    font-size: 13px;
+    color: #6b7280;
+    flex-wrap: wrap;
+}
+.legenda span{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.ponto{
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+}
+.ponto-presente{ background: #16a34a; }
+.ponto-atraso{ background: #e2a03f; }
+.ponto-falta{ background: #d9534f; }
+.ponto-vazio{ background: #d6dbe1; }
+
+.grelha-dias-semana{
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    margin-bottom: 8px;
+}
+.grelha-dias-semana span{
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    color: #9aa3ad;
+    padding: 6px 0;
+}
+
+.grelha-calendario{
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+}
+
+.dia{
+    aspect-ratio: 1 / 1;
+    min-height: 64px;
+    border-radius: 12px;
+    background: #f8fafc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: .2s ease;
+}
+.dia-letivo{
+    background: #ffffff;
+    border: 1px solid #ececec;
+    cursor: pointer;
+}
+.dia-letivo:hover{
+    border-color: burlywood;
+    transform: translateY(-2px);
+}
+.dia-fds{
+    background: transparent;
+}
+.dia-fds .numero{
+    color: #c3cbd3;
+}
+.dia-vazia{
+    background: transparent;
+}
+.numero{
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a3341;
+}
+.dia-hoje{
+    border: 2px solid burlywood;
+}
+.dia-hoje .numero{
+    color: #a9762e;
+}
+.dia-selecionado{
+    background: #1a3341;
+}
+.dia-selecionado .numero{
+    color: #fff;
+}
+
+/* Detalhe do dia */
+.detalhe-dia{
+    background: #fff;
+    border-radius: 18px;
+    border: 1px solid #ececec;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+    padding: 24px 28px;
+}
+.detalhe-dia h3{
+    font-size: 17px;
+    color: #1a3341;
+    margin-bottom: 18px;
+}
+.detalhe-lista{
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+.detalhe-item{
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px;
+    border-radius: 12px;
+    background: #f8fafc;
+}
+.avatar{
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+.detalhe-info{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 3px;
+}
+.detalhe-info strong{
+    font-size: 14px;
+    color: #1a3341;
+}
+.detalhe-info span{
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.status-presente,
+.status-atraso,
+.status-falta{
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 8px;
+}
+.status-presente{
+    background: #dcfce7;
+    color: #16a34a;
+}
+.status-atraso{
+    background: #fff2d8;
+    color: #b97700;
+}
+.status-falta{
+    background: #fcdcdc;
+    color: #a31616;
+}
+

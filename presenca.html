@@ -26,25 +26,44 @@
            <div class="corpo">
             <div class="cabecalho">
                 <div class="c">
-                    <input type="text" placeholder="Pesquisar">
+                    <input type="text" id="pesquisaAluno" placeholder="Pesquisar aluno">
                     <a href="perfil.html" class="btn-perfil">JS</a>
                 </div>
             </div>
 
              <div class="resumo">
                  <div class="card-resumo">
-                   <h3>Presenças</h3>
-                    <span>18</span>
+                   <h3>Presentes</h3>
+                    <span id="totalPresentes">0</span>
                  </div>
                  <div class="card-resumo">
-                    <h3>Presenças</h3>
-                    <span>18</span>
+                    <h3>Atrasos</h3>
+                    <span id="totalAtrasos">0</span>
                  </div>
                  <div class="card-resumo">
-                    <h3>Presenças</h3>
-                    <span>18</span>
+                    <h3>Ausentes</h3>
+                    <span id="totalAusentes">0</span>
                  </div>
-             </div>   
+             </div>
+
+             <div class="filtros">
+                 <select id="filtroTurma">
+                     <option value="todas">Todas as turmas</option>
+                     <option value="9ª A">9ª A</option>
+                     <option value="8ª A">8ª A</option>
+                     <option value="5ª A">5ª A</option>
+                 </select>
+
+                 <select id="filtroStatus">
+                     <option value="todos">Todos os estados</option>
+                     <option value="presente">Presente</option>
+                     <option value="atraso">Atraso</option>
+                     <option value="ausente">Ausente</option>
+                 </select>
+
+                 <button type="button" id="limparFiltros" class="btn-limpar">Limpar filtros</button>
+             </div>
+
              <table class="table-presencas">
                  <thead>
                      <tr>
@@ -57,38 +76,50 @@
                          <th>Ações</th>
                      </tr>
                  </thead>
-                <tbody>
-                     <tr>
+                <tbody id="corpoTabela">
+                     <tr data-aluno="João Silvestre" data-turma="9ª A" data-status="presente">
                         <td>João Silvestre</td>
                         <td>9ª A</td>
                         <td>#1245</td>
-                        <td>07:32</td>
-                        <td>12:15</td>
-                        <td><span class="status-presente">Presente</span></td>
+                        <td class="col-entrada">07:32</td>
+                        <td class="col-saida">12:15</td>
+                        <td class="col-status"><span class="status-presente">Presente</span></td>
                         <td class="acoes">
                             <button class="btn-ver">Ver</button>
                             <button class="btn-edt">Editar</button>
                         </td>
                      </tr>
-                     <tr>
+                     <tr data-aluno="Joana Silvestre" data-turma="8ª A" data-status="ausente">
                         <td>Joana Silvestre</td>
                         <td>8ª A</td>
                         <td>#1355</td>
-                        <td>07:20</td>
-                        <td>12:30</td>
-                        <td><span class="status-ausente">Ausente</span></td>
+                        <td class="col-entrada">--</td>
+                        <td class="col-saida">--</td>
+                        <td class="col-status"><span class="status-ausente">Ausente</span></td>
                         <td class="acoes">
                             <button class="btn-ver">Ver</button>
                             <button class="btn-edt">Editar</button>
                         </td>
                      </tr>
-                     <tr>
+                     <tr data-aluno="Rafael Silvestre" data-turma="5ª A" data-status="presente">
                         <td>Rafael Silvestre</td>
                         <td>5ª A</td>
                         <td>#1322</td>
-                        <td>07:20</td>
-                        <td>12:10</td>
-                        <td><span class="status-presente">Presente</span></td>
+                        <td class="col-entrada">07:20</td>
+                        <td class="col-saida">12:10</td>
+                        <td class="col-status"><span class="status-presente">Presente</span></td>
+                        <td class="acoes">
+                            <button class="btn-ver">Ver</button>
+                            <button class="btn-edt">Editar</button>
+                        </td>
+                     </tr>
+                     <tr data-aluno="Marta Silvestre" data-turma="9ª A" data-status="atraso">
+                        <td>Marta Silvestre</td>
+                        <td>9ª A</td>
+                        <td>#1411</td>
+                        <td class="col-entrada">07:45</td>
+                        <td class="col-saida">12:20</td>
+                        <td class="col-status"><span class="status-atraso">Atraso</span></td>
                         <td class="acoes">
                             <button class="btn-ver">Ver</button>
                             <button class="btn-edt">Editar</button>
@@ -96,8 +127,26 @@
                      </tr>
                  </tbody>
              </table>
+
+             <p id="semResultados" class="sem-resultados" hidden>Nenhum aluno encontrado com estes filtros.</p>
+        </div>
         </header>
     </main>
-    
+
+    <div id="modalVer" class="modal-overlay" hidden>
+        <div class="modal-caixa" role="dialog" aria-modal="true" aria-labelledby="modalTitulo">
+            <button type="button" class="modal-fechar" id="fecharModal" aria-label="Fechar">&times;</button>
+            <h2 id="modalTitulo">Detalhes</h2>
+            <dl class="modal-lista">
+                <dt>Turma</dt><dd id="modalTurma"></dd>
+                <dt>Cartão</dt><dd id="modalCartao"></dd>
+                <dt>Entrada</dt><dd id="modalEntrada"></dd>
+                <dt>Saída</dt><dd id="modalSaida"></dd>
+                <dt>Status</dt><dd id="modalStatus"></dd>
+            </dl>
+        </div>
+    </div>
+
+    <script src="script/presenca.js" defer></script>
 </body>
 </html>

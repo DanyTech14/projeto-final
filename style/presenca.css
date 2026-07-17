@@ -24,7 +24,7 @@ header{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 115%;
+    width: 100%;
 }
 .cabecalho input{
     width: 350px;
@@ -151,24 +151,28 @@ main{
     color: #0f172a;
 }
 
-.status-presente{
+.status-presente,
+.status-ausente,
+.status-atraso{
     display: inline-block;
     font-size: 13px;
     font-weight: 600;
     padding: 4px 12px;
     border-radius: 8px;
+}
+.status-presente{
     background: #dcfce7;
     color: #16a34a;
 }
 .status-ausente{
-    display: inline-block;
-    font-size: 13px;
-    font-weight: 600;
-    padding: 4px 12px;
-    border-radius: 8px;
     background: #fcdcdc;
     color: #a31616;
 }
+.status-atraso{
+    background: #fff2d8;
+    color: #b97700;
+}
+
 button{
     padding: 8px 16px;
     border: none;
@@ -222,6 +226,14 @@ button{
     transform: translateY(-2px);
     box-shadow: 0 6px 14px rgba(222, 184, 135, .45);
 }
+.btn-edt.a-editar{
+    background: #1b7a3d;
+    box-shadow: 0 2px 6px rgba(27, 122, 61, .35);
+}
+.btn-edt.a-editar:hover{
+    background: #15602f;
+}
+
 .resumo{
     display: flex;
     gap: 30px;
@@ -261,11 +273,14 @@ button{
     font-weight: bold;
     color: #1a3341;
 }
+
+/* Filtros */
 .filtros{
     display: flex;
     gap: 20px;
     align-items: center;
-    margin-bottom: 35px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
 }
 .filtros select,
 .filtros input{
@@ -277,9 +292,118 @@ button{
     border-radius: 8px;
     background: white;
     outline: none;
+    font-family: inherit;
 }
 .filtros select:focus,
 .filtros input:focus{
     border-color: burlywood;
     box-shadow: 0 0 0 3px rgba(222, 184, 135, .25);
+}
+.btn-limpar{
+    height: 45px;
+    background: #e9edf1;
+    color: #1a3341;
+    border-radius: 8px;
+    padding: 0 18px;
+}
+.btn-limpar:hover{
+    background: #dbe1e7;
+}
+
+/* Sem resultados */
+.sem-resultados{
+    margin-top: 20px;
+    text-align: center;
+    color: #6b7280;
+    font-size: 14px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px dashed #d6d6d6;
+}
+
+/* Edição inline */
+.editar-input{
+    width: 70px;
+    height: 32px;
+    padding: 0 8px;
+    border: 1px solid #d6d6d6;
+    border-radius: 6px;
+    font-size: 13px;
+    text-align: center;
+    outline: none;
+}
+.editar-input:focus{
+    border-color: burlywood;
+    box-shadow: 0 0 0 3px rgba(222, 184, 135, .25);
+}
+.editar-select{
+    height: 32px;
+    padding: 0 6px;
+    border: 1px solid #d6d6d6;
+    border-radius: 6px;
+    font-size: 13px;
+    outline: none;
+    background: #fff;
+}
+
+/* Modal de detalhes */
+.modal-overlay{
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, .55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+}
+.modal-overlay[hidden]{
+    display: none;
+}
+.modal-caixa{
+    position: relative;
+    width: 100%;
+    max-width: 380px;
+    background: #fff;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, .25);
+}
+.modal-caixa h2{
+    color: #1a3341;
+    margin-bottom: 18px;
+    font-size: 20px;
+}
+.modal-fechar{
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border-radius: 50%;
+    background: #f2f2f2;
+    color: #1a3341;
+    font-size: 18px;
+    line-height: 1;
+}
+.modal-fechar:hover{
+    background: #e5e5e5;
+}
+.modal-lista{
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    row-gap: 12px;
+}
+.modal-lista dt{
+    color: #6b7280;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .4px;
+}
+.modal-lista dd{
+    color: #1e293b;
+    font-size: 14px;
+    font-weight: 500;
 }
