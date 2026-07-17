@@ -1,52 +1,56 @@
-nav.side-nav {
+nav.side-nav{
     min-height: 100vh;
     width: 220px;
     flex: 0 0 220px;
-    background: #1a3341;
+    background: linear-gradient(180deg, #183543 0%, #10242e 100%);
     color: #fff;
-    box-shadow: 3px 6px 9px rgba(18, 20, 20, .25);
+    box-shadow: 3px 6px 9px rgba(0, 0, 0, .18);
 }
-
-.nav-brand {
+.nav-brand{
     min-height: 92px;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0 18px;
-    background: #16303d;
+    background: rgba(255, 255, 255, .04);
     color: burlywood;
-    font-size: 20px;
-    font-weight: 800;
-    text-align: center;
-    border-bottom: 2px solid rgba(255, 255, 255, .08);
+    font-size: 40px;
+    font-weight: 700;
+    letter-spacing: .8px;
+    border-bottom: 2px solid regba(255, 255, 255, .08);
 }
-
-nav.side-nav ul {
+nav.side-nav ul{
     padding: 42px 0 0 16px;
 }
-
-nav.side-nav li {
+nav.side-nav li{
     list-style: none;
     margin-bottom: 8px;
 }
-
-nav.side-nav a {
-    display: block;
-    padding: 13px 18px;
+nav.side-nav a{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
     border-left: 4px solid transparent;
-    border-radius: 8px 0 0 8px;
-    color: #fff;
+    border-radius: 10px 0 0 10px;
+    color: #dbe5eb;
     font-size: 15px;
-    font-weight: 700;
+    font-weight: 600;
     text-decoration: none;
-    transition: background .2s ease, border-color .2s ease, padding-left .2s ease;
+    transition: .3s ease;
 }
-
 nav.side-nav a:hover,
-nav.side-nav a.active,
-nav.side-nav a[aria-current="page"] {
-    padding-left: 24px;
-    border-left-color: burlywood;
+nav.side-nav a.active{
     background: #2d5064;
+    border-left-color: burlywood;
+    color: #fff;
+    padding-left: 24px;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .05);
 }
-
+nav.side-nav a.active::after,
+nav.side-nav[aria-current="page"]{
+    margin-left: auto;
+    width: 8px;
+    height: 8px;
+    background: burlywood;
+}
