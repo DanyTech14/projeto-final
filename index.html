@@ -5,22 +5,35 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel | Presence Guard</title>
-    <link rel="stylesheet" href="style/main.css">
+    <link rel="stylesheet" href="style/base.css">
     <link rel="stylesheet" href="style/nav.css">
+    <link rel="stylesheet" href="style/main.css">
+    <script>
+        (function () {
+            try {
+                if (localStorage.getItem("pg-nav-collapsed") === "1") {
+                    document.documentElement.classList.add("nav-collapsed");
+                }
+            } catch (e) {}
+        })();
+    </script>
 </head>
 <body>
     <main>
         <header>
             <nav class="side-nav" aria-label="Menu Principal">
-                 <h1 class="nav-brand">PG</h1>
-                 <ul>
-                     <li><a class="active" href="index.html" aria-current="page">Painel</a></li>
-                     <li><a href="presenca.html">Presença</a></li>
-                     <li><a href="calendario.html">Calendário</a></li>
-                     <li><a href="relatorio.html">Relatório</a></li>
-                     <li><a href="config.html">Configurações</a></li>
-                 </ul>
-             </nav>
+                <div class="nav-topo">
+                    <span class="nav-brand">PG</span>
+                    <button type="button" id="navToggle" class="nav-toggle" aria-label="Recolher menu" aria-expanded="true">‹</button>
+                </div>
+                <ul>
+                    <li><a class="active" href="index.html" aria-current="page"><span class="icone">🏠</span><span class="rotulo">Painel</span></a></li>
+                    <li><a href="presenca.html"><span class="icone">✅</span><span class="rotulo">Presença</span></a></li>
+                    <li><a href="calendario.html"><span class="icone">📅</span><span class="rotulo">Calendário</span></a></li>
+                    <li><a href="relatorio.html"><span class="icone">📊</span><span class="rotulo">Relatório</span></a></li>
+                    <li><a href="config.html"><span class="icone">⚙️</span><span class="rotulo">Configurações</span></a></li>
+                </ul>
+            </nav>
 
             <div class="corpo">
                 <div class="cabecalho">
@@ -29,7 +42,7 @@
                         <a href="config.html" class="btn-perfil">JS</a>
                     </div>
                 </div>
-   
+
                 <section class="cards">
                    <div class="card">
                        <h1>Presenças</h1>
@@ -47,7 +60,7 @@
                        <p>Injustificadas</p>
                    </div>
                </section>
-   
+
                <section class="entrada">
                    <div class="card2">
 
@@ -56,112 +69,114 @@
                         <div class="hora">
                             07:28
                         </div>
-                    
+
                         <div class="rodape-card">
-                        
+
                             <div class="data">
                                 <strong>📅</strong> 16/07/2026
                             </div>
-                        
+
                             <span class="estado estado-positivo">
                                 ✓ A tempo
                             </span>
-                        
+
                         </div>
-                    
+
                     </div>
-   
+
                    <div class="card2">
 
                         <h1>Saída</h1>
-                                    
+
                         <div class="hora">
                             12:35
                         </div>
-                    
+
                         <div class="rodape-card">
-                        
+
                             <div class="data">
                                 <strong>📅</strong> 16/07/2026
                             </div>
-                        
+
                             <span class="estado estado-info">
                                 ✓ Registada
                             </span>
-                        
+
                         </div>
-                    
+
                     </div>
                </section>
-   
+
                <section class="relatorio">
 
                     <div class="titulo-relatorio">
                         <h1>Resumo de Frequência</h1>
                         <a href="relatorio.html">Ver tudo</a>
                     </div>
-                
+
                     <table>
-                    
+
                         <thead>
-                        
+
                             <tr>
                                 <th>Data</th>
                                 <th>Entrada</th>
                                 <th>Saída</th>
                                 <th>Estado</th>
                             </tr>
-                        
+
                         </thead>
-                    
+
                         <tbody>
-                        
+
                             <tr>
                                 <td>16/07/2026</td>
                                 <td>07:28</td>
                                 <td>12:35</td>
-                                <td class="presente">Presente</td>
+                                <td><span class="presente">Presente</span></td>
                             </tr>
-                        
+
                             <tr>
                                 <td>15/07/2026</td>
                                 <td>07:34</td>
                                 <td>12:31</td>
-                                <td class="atraso">Atraso</td>
+                                <td><span class="atraso">Atraso</span></td>
                             </tr>
-                        
+
                             <tr>
                                 <td>14/07/2026</td>
                                 <td>07:26</td>
                                 <td>12:30</td>
-                                <td class="presente">Presente</td>
+                                <td><span class="presente">Presente</span></td>
                             </tr>
-                        
+
                             <tr>
                                 <td>13/07/2026</td>
                                 <td>--</td>
                                 <td>--</td>
-                                <td class="falta">Falta</td>
+                                <td><span class="falta">Falta</span></td>
                             </tr>
-                        
+
                             <tr>
                                 <td>12/07/2026</td>
                                 <td>07:25</td>
                                 <td>12:32</td>
-                                <td class="presente">Presente</td>
+                                <td><span class="presente">Presente</span></td>
                             </tr>
-                        
+
                         </tbody>
-                    
+
                     </table>
 
                 </section>
             </div>
 
-           
+
         </header>
 
-        
+
     </main>
+
+    <script src="script/nav.js" defer></script>
 </body>
 </html>

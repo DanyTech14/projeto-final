@@ -1,90 +1,24 @@
-*{
-    margin: 0;
-    padding: 0;
-}
-body{
-    display: flex;
-    font-family: Arial, Helvetica, sans-serif;
-    background: #f5f7fa;
-  
-}
-header{
-    display: flex;
-    justify-content: space-between;
-}
-.corpo {
-    flex: 1;
-    padding: 40px 50px;
-}
-
-.cabecalho {
-    margin-bottom: 40px;
-}
-.cabecalho .c{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-}
-.cabecalho input{
-    width: 350px;
-    height: 40px;
-    padding: 0 15px;
-    border: 1px solid #d6d6d6;
-    border-radius: 8px;
-    background: #fff;
-    font-size: 14px;
-    outline: none;
-    transition: all .3s ease;
-}
-.cabecalho input:focus{
-    border-color: burlywood;
-    box-shadow: 0 0 0 3px rgba(222, 184, 135, .25);
-}
-.cabecalho input::placeholder{
-    color: #9b9b9b;
-}
-.btn-perfil {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 45px;
-    height: 45px;
-    border: none;
-    border-radius: 50%;
-    background: #1a3341;
-    color: burlywood;
-    text-decoration: none;
-    font-size: 22px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all .3s ease;
-}
-
-.btn-perfil:hover {
-    transform: scale(1.08);
-    background: #244759;
-}
-
-main{
-    display: flex;
-}
+/* ==========================================================================
+   Presença (presenca.html) — estilos exclusivos desta página.
+   Depende de base.css (variáveis, cabeçalho, resumo, filtros, badges) e nav.css.
+   ========================================================================== */
 
 .table-presencas{
     width: 100%;
+    table-layout: fixed;
     border-collapse: collapse;
     background: #ffffff;
-    border-radius: 18px;
+    border-radius: var(--raio);
     overflow: hidden;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+    box-shadow: var(--sombra-card);
     font-size: 14px;
 }
 
 .table-presencas thead{
     background: #243145;
     color: #ffffff;
-
 }
+
 .table-presencas th{
     padding: 18px 16px;
     text-align: left;
@@ -92,11 +26,24 @@ main{
     font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 1px;
+    color: #ffffff;
     border-bottom: 2px solid #0f172a;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+/* Larguras fixas por coluna — impede que a tabela mude de forma quando uma
+   célula é editada (entrada/saída/estado). Usamos px (em vez de %) nas
+   colunas de conteúdo previsível, para garantir que os dois botões de
+   "Ações" (80px + 80px + espaçamento) têm sempre espaço suficiente.
+   A coluna "Aluno" fica sem largura definida e ocupa o espaço restante. */
+.table-presencas th:nth-child(2), .table-presencas td:nth-child(2){ width: 90px; }
+.table-presencas th:nth-child(3), .table-presencas td:nth-child(3){ width: 100px; }
+.table-presencas th:nth-child(4), .table-presencas td:nth-child(4){ width: 100px; }
+.table-presencas th:nth-child(5), .table-presencas td:nth-child(5){ width: 100px; }
+.table-presencas th:nth-child(6), .table-presencas td:nth-child(6){ width: 130px; }
+.table-presencas th:nth-child(7), .table-presencas td:nth-child(7){ width: 210px; }
 
 .table-presencas th:nth-child(4),
 .table-presencas th:nth-child(5),
@@ -107,11 +54,12 @@ main{
 .table-presencas td:nth-child(6),
 .table-presencas td:nth-child(7){
     text-align: center;
-} 
+}
 
 .table-presencas tbody tr{
+    height: 66px;
     border-bottom: 1px solid #e2e8f0;
-    transition: background 0.2s ease;
+    transition: background var(--transicao);
 }
 
 .table-presencas tbody tr:hover{
@@ -121,7 +69,9 @@ main{
 .table-presencas tbody tr:last-child{
     border-bottom: none;
 }
+
 .table-presencas td{
+    height: auto;
     padding: 18px 16px;
     vertical-align: middle;
     color: #1e293b;
@@ -129,75 +79,50 @@ main{
 
 .table-presencas td:first-child{
     font-weight: 600;
-    color: #1a3341;
+    color: var(--azul-escuro);
     font-size: 15px;
-    font-weight: 600;
-    width: 40px;
 }
+
 .table-presencas td:nth-child(2){
     font-weight: 600;
     color: #475569;
 }
+
 .table-presencas td:nth-child(3){
     color: #475569;
 }
-.table-presencas td:nth-child(4){
+
+.table-presencas td:nth-child(4),
+.table-presencas td:nth-child(5){
     color: #475569;
     font-size: 13px;
-}
-.table-presencas td:nth-child(5), 
-.table-presencas td:nth-child(6){
     font-weight: 500;
-    color: #0f172a;
 }
 
-.status-presente,
-.status-ausente,
-.status-atraso{
-    display: inline-block;
-    font-size: 13px;
-    font-weight: 600;
-    padding: 4px 12px;
-    border-radius: 8px;
-}
-.status-presente{
-    background: #dcfce7;
-    color: #16a34a;
-}
-.status-ausente{
-    background: #fcdcdc;
-    color: #a31616;
-}
-.status-atraso{
-    background: #fff2d8;
-    color: #b97700;
+.table-presencas td:nth-child(7){
+    overflow: visible;
+    padding: 12px 10px;
 }
 
-button{
-    padding: 8px 16px;
-    border: none;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: .3s ease;
-}
-
+/* Ações da linha */
 .acoes{
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 12px;
+    gap: 8px;
     height: 100%;
 }
 
 .table-presencas button{
-    width: 80px;
+    width: 76px;
     height: 36px;
-    padding: 8px 14px;
+    padding: 8px 10px;
+    border: none;
     border-radius: 6px;
     font-size: 12px;
-    letter-spacing: 0.3px;
+    font-weight: 600;
+    letter-spacing: .3px;
+    transition: var(--transicao-lenta);
 }
 
 .table-presencas button:active{
@@ -206,10 +131,11 @@ button{
 }
 
 .btn-ver{
-    background: #2d5064;
+    background: var(--azul-selecionado);
     color: white;
     box-shadow: 0 2px 6px rgba(45, 80, 100, .3);
 }
+
 .btn-ver:hover{
     background: #1f3b4a;
     transform: translateY(-2px);
@@ -221,108 +147,23 @@ button{
     color: white;
     box-shadow: 0 2px 6px rgba(222, 184, 135, .4);
 }
+
 .btn-edt:hover{
     background: #c89d64;
     transform: translateY(-2px);
     box-shadow: 0 6px 14px rgba(222, 184, 135, .45);
 }
+
 .btn-edt.a-editar{
     background: #1b7a3d;
     box-shadow: 0 2px 6px rgba(27, 122, 61, .35);
 }
+
 .btn-edt.a-editar:hover{
     background: #15602f;
 }
 
-.resumo{
-    display: flex;
-    gap: 30px;
-    margin-bottom: 35px;
-}
-.card-resumo{
-    padding: 22px;
-    background: #fff;
-    border-radius: 18px;
-    border: 1px solid #ececec;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, .06);
-    transition: .3s;
-    flex: 1;
-    overflow: hidden;
-    position: relative;
-}
-.card-resumo::before{
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 5px;
-    background: burlywood;
-}
-.card-resumo:hover{
-    transform: translateY(-5px);
-}
-.card-resumo h3{
-    color: #6b7280;
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 12px;
-}
-.card-resumo span{
-    font-size: 46px;
-    font-weight: bold;
-    color: #1a3341;
-}
-
-/* Filtros */
-.filtros{
-    display: flex;
-    gap: 20px;
-    align-items: center;
-    margin-bottom: 25px;
-    flex-wrap: wrap;
-}
-.filtros select,
-.filtros input{
-    height: 45px;
-    min-width: 170px;
-    font-size: 14px;
-    padding: 0 15px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background: white;
-    outline: none;
-    font-family: inherit;
-}
-.filtros select:focus,
-.filtros input:focus{
-    border-color: burlywood;
-    box-shadow: 0 0 0 3px rgba(222, 184, 135, .25);
-}
-.btn-limpar{
-    height: 45px;
-    background: #e9edf1;
-    color: #1a3341;
-    border-radius: 8px;
-    padding: 0 18px;
-}
-.btn-limpar:hover{
-    background: #dbe1e7;
-}
-
-/* Sem resultados */
-.sem-resultados{
-    margin-top: 20px;
-    text-align: center;
-    color: #6b7280;
-    font-size: 14px;
-    background: #fff;
-    padding: 20px;
-    border-radius: 12px;
-    border: 1px dashed #d6d6d6;
-}
-
-/* Edição inline */
+/* Edição inline — largura fixa para não empurrar as colunas vizinhas */
 .editar-input{
     width: 70px;
     height: 32px;
@@ -333,10 +174,12 @@ button{
     text-align: center;
     outline: none;
 }
+
 .editar-input:focus{
-    border-color: burlywood;
+    border-color: var(--dourado);
     box-shadow: 0 0 0 3px rgba(222, 184, 135, .25);
 }
+
 .editar-select{
     height: 32px;
     padding: 0 6px;
@@ -351,15 +194,17 @@ button{
 .modal-overlay{
     position: fixed;
     inset: 0;
+    z-index: 200;
     background: rgba(15, 23, 42, .55);
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 50;
 }
+
 .modal-overlay[hidden]{
     display: none;
 }
+
 .modal-caixa{
     position: relative;
     width: 100%;
@@ -369,11 +214,13 @@ button{
     padding: 30px;
     box-shadow: 0 20px 45px rgba(0, 0, 0, .25);
 }
+
 .modal-caixa h2{
-    color: #1a3341;
+    color: var(--azul-escuro);
     margin-bottom: 18px;
     font-size: 20px;
 }
+
 .modal-fechar{
     position: absolute;
     top: 14px;
@@ -381,27 +228,32 @@ button{
     width: 32px;
     height: 32px;
     padding: 0;
+    border: none;
     border-radius: 50%;
     background: #f2f2f2;
-    color: #1a3341;
+    color: var(--azul-escuro);
     font-size: 18px;
     line-height: 1;
 }
+
 .modal-fechar:hover{
     background: #e5e5e5;
 }
+
 .modal-lista{
     display: grid;
     grid-template-columns: 100px 1fr;
     row-gap: 12px;
 }
+
 .modal-lista dt{
-    color: #6b7280;
+    color: var(--texto-suave);
     font-size: 13px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: .4px;
 }
+
 .modal-lista dd{
     color: #1e293b;
     font-size: 14px;

@@ -1,121 +1,35 @@
-/* RESET */
-* {
-    margin: 0;
-    padding: 0;
-}
+/* ==========================================================================
+   Painel (index.html) — estilos exclusivos desta página.
+   Depende de base.css (variáveis, cabeçalho, tabela, badges) e nav.css.
+   ========================================================================== */
 
-/* Body */
-body {
-    display: flex;
-    font-family: Arial, Helvetica, sans-serif;
-    background: #f5f7fa;
-}
-
-/* Header */
-header {
-    display: flex;
-    justify-content: space-between;
-}
-
-/* Conteúdo Principal */
-.corpo {
-    flex: 1;
-    padding: 40px 50px;
-}
-
-main {
-    display: flex;
-}
-
-/* Cabeçalho */
-.cabecalho {
-    margin-bottom: 40px;
-}
-
-.cabecalho .c {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-}
-
-.cabecalho input {
-    width: 350px;
-    height: 40px;
-    padding: 0 15px;
-    border: 1px solid #d6d6d6;
-    border-radius: 8px;
-    background: #fff;
-    font-size: 14px;
-    outline: none;
-    transition: all .3s ease;
-}
-
-.cabecalho input:focus {
-    border-color: burlywood;
-    box-shadow: 0 0 0 3px rgba(222, 184, 135, .25);
-}
-
-.cabecalho input::placeholder {
-    color: #9b9b9b;
-}
-
-/* Botão Perfil */
-.btn-perfil {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 45px;
-    height: 45px;
-    border: none;
-    border-radius: 50%;
-    background: #1a3341;
-    color: burlywood;
-    text-decoration: none;
-    font-size: 22px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all .3s ease;
-}
-
-.btn-perfil:hover {
-    transform: scale(1.08);
-    background: #244759;
-}
-
-/* Cards */
-.cards {
+/* Cards de números (Presenças / Atrasos / Faltas) */
+.cards{
     display: flex;
     gap: 30px;
     margin-bottom: 35px;
+    flex-wrap: wrap;
 }
 
-.card,
-.card2,
-.relatorio {
-    transition: .25s;
+.card{
+    position: relative;
+    flex: 1;
+    min-width: 180px;
+    height: 160px;
+    padding: 22px;
+    background: white;
+    border: 1px solid var(--borda);
+    border-radius: var(--raio);
+    box-shadow: var(--sombra-card);
+    overflow: hidden;
+    transition: transform var(--transicao-lenta);
 }
 
-.card:hover,
-.card2:hover,
-.relatorio:hover {
+.card:hover{
     transform: translateY(-5px);
 }
 
-.card {
-    position: relative;
-    flex: 1;
-    height: 130px;
-    padding: 22px;
-    background: white;
-    border: 1px solid #ececec;
-    border-radius: 18px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
-    overflow: hidden;
-    transition: .3s;
-}
-
-.card::before {
+.card::before{
     content: "";
     position: absolute;
     top: 0;
@@ -125,179 +39,115 @@ main {
     background: burlywood;
 }
 
-.card h1 {
+.card h1{
     margin-bottom: 18px;
     font-size: 18px;
     color: #777;
 }
 
-.card h2 {
+.card h2{
     margin-bottom: 8px;
     font-size: 46px;
-    color: #1a3341;
+    color: var(--azul-escuro);
 }
 
-.card p {
+.card p{
     font-size: 14px;
     color: #999;
 }
 
-/* Entrada */
-.entrada {
+/* Cards de entrada/saída do dia */
+.entrada{
     display: flex;
     gap: 30px;
     margin-bottom: 35px;
+    flex-wrap: wrap;
 }
 
-/* Card 2 */
-.card2 {
+.card2{
     position: relative;
     flex: 1;
-    width: 380px;
+    min-width: 260px;
     min-height: 160px;
     padding: 22px;
     background: white;
-    border: 1px solid #ececec;
-    border-radius: 18px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+    border: 1px solid var(--borda);
+    border-radius: var(--raio);
+    box-shadow: var(--sombra-card);
     overflow: hidden;
-    transition: .3s;
+    transition: transform var(--transicao-lenta), box-shadow var(--transicao-lenta);
 }
 
-.card2:hover {
+.card2:hover{
     transform: translateY(-6px);
     box-shadow: 0 18px 35px rgba(0, 0, 0, .15);
 }
 
-.card2 h1,
-.relatorio h1 {
+.card2 h1{
     margin-bottom: 18px;
     font-size: 20px;
     font-weight: 600;
     color: #6b7280;
 }
 
-.hora {
+.hora{
     margin: 15px 0 22px;
     font-size: 42px;
     font-weight: 700;
     letter-spacing: 1px;
     text-align: center;
-    color: #1a3341;
+    color: var(--azul-escuro);
 }
 
-.rodape-card {
+.rodape-card{
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.data {
+.data{
     font-size: 14px;
     color: #777;
 }
 
-.estado {
-    padding: 5px 12px;
-    border-radius: 15px;
-    font-size: 13px;
-    font-weight: bold;
-}
-
-.estado-positivo {
-    background: #dff5e7;
-    color: #1b7a3d;
-}
-
-.estado-info {
-    background: #e5f0ff;
-    color: #1f5fa8;
-}
-
-/* Relatório */
-.relatorio {
+/* Bloco de relatório resumido */
+.relatorio{
     display: flex;
     flex-direction: column;
-    width: 95%;
+    width: 100%;
     min-height: 420px;
     padding: 25px;
     background: white;
-    border: 1px solid #ececec;
-    border-radius: 18px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+    border: 1px solid var(--borda);
+    border-radius: var(--raio);
+    box-shadow: var(--sombra-card);
+    transition: transform var(--transicao-lenta);
 }
 
-.titulo-relatorio {
+.relatorio:hover{
+    transform: translateY(-5px);
+}
+
+.titulo-relatorio{
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 25px;
 }
 
-.titulo-relatorio h1 {
+.titulo-relatorio h1{
     margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: #6b7280;
 }
 
-.titulo-relatorio a {
-    color: #1a3341;
+.titulo-relatorio a{
+    color: var(--azul-escuro);
     text-decoration: none;
     font-weight: bold;
 }
 
-.titulo-relatorio a:hover {
-    color: burlywood;
-}
-
-/* Tabela */
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-th {
-    padding: 15px 12px;
-    text-align: left;
-    font-size: 15px;
-    color: #6b7280;
-    border-bottom: 2px solid #ececec;
-}
-
-td {
-    padding: 16px 12px;
-    border-bottom: 1px solid #f2f2f2;
-}
-
-tbody tr {
-    transition: .25s;
-}
-
-tbody tr:hover {
-    background: #fafafa;
-}
-
-/* Status */
-.presente,
-.atraso,
-.falta {
-    display: inline-block;
-    margin-top: 9px;
-    padding: 5px 12px;
-    border-radius: 15px;
-    font-size: 13px;
-    font-weight: bold;
-}
-
-.presente {
-    background: #dff5e7;
-    color: #1b7a3d;
-}
-
-.atraso {
-    background: #fff2d8;
-    color: #b97700;
-}
-
-.falta {
-    background: #ffe3e3;
-    color: #b42318;
+.titulo-relatorio a:hover{
+    color: var(--dourado);
 }

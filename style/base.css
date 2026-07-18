@@ -1,0 +1,522 @@
+/* ==========================================================================
+   Presence Guard — Base
+   Reset + variáveis + componentes partilhados por TODAS as páginas.
+   Carregar sempre antes de nav.css e do CSS específico da página.
+   ========================================================================== */
+
+:root{
+    --nav-width: 220px;
+    --nav-width-collapsed: 76px;
+    --azul-escuro: #1a3341;
+    --azul-hover: #244759;
+    --azul-selecionado: #2d5064;
+    --dourado: burlywood;
+    --dourado-hover: #c99b5d;
+    --fundo: #f5f7fa;
+    --texto-suave: #6b7280;
+    --texto-fraco: #9aa3ad;
+    --borda: #ececec;
+    --borda-forte: #dbe1e6;
+    --sombra-card: 0 10px 25px rgba(0, 0, 0, .08);
+    --raio: 18px;
+    --raio-sm: 8px;
+    --transicao: .2s ease;
+    --transicao-lenta: .3s ease;
+}
+
+/* RESET — box-sizing border-box em tudo evita que padding/border alterem
+   a largura calculada dos elementos, o que era a principal causa de
+   pequenas diferenças de tamanho entre páginas. */
+*,
+*::before,
+*::after{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+body{
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--fundo);
+    color: #14212b;
+    overflow-x: hidden;
+}
+
+main,
+header{
+    display: block;
+}
+
+/* ==========================================================================
+   Área de conteúdo — deslocada pela largura fixa do menu lateral.
+   A margem faz a transição em conjunto com a barra (ver nav.css) para que
+   nada "salte" quando o menu é recolhido/expandido.
+   ========================================================================== */
+.corpo{
+    min-height: 100vh;
+    margin-left: var(--nav-width);
+    padding: 40px 50px 60px;
+    transition: margin-left var(--transicao-lenta);
+    overflow-x: hidden;
+}
+
+.nav-collapsed .corpo{
+    margin-left: var(--nav-width-collapsed);
+}
+
+/* ==========================================================================
+   Cabeçalho de página (pesquisa + avatar de perfil)
+   ========================================================================== */
+.cabecalho{
+    margin-bottom: 32px;
+}
+
+.cabecalho .c{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 20px;
+}
+
+.cabecalho .c.c-sem-pesquisa{
+    justify-content: flex-end;
+}
+
+.cabecalho input{
+    width: 350px;
+    max-width: 100%;
+    height: 40px;
+    padding: 0 15px;
+    border: 1px solid #d6d6d6;
+    border-radius: var(--raio-sm);
+    background: #fff;
+    font-size: 14px;
+    outline: none;
+    transition: all var(--transicao-lenta);
+}
+
+.cabecalho input:focus{
+    border-color: var(--dourado);
+    box-shadow: 0 0 0 3px rgba(222, 184, 135, .25);
+}
+
+.cabecalho input::placeholder{
+    color: #9b9b9b;
+}
+
+.btn-perfil{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 45px;
+    height: 45px;
+    border: none;
+    border-radius: 50%;
+    background: var(--azul-escuro);
+    color: var(--dourado);
+    text-decoration: none;
+    font-size: 22px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all var(--transicao-lenta);
+}
+
+.btn-perfil:hover{
+    transform: scale(1.08);
+    background: var(--azul-hover);
+}
+
+.btn-perfil-atual{
+    cursor: default;
+    box-shadow: 0 0 0 3px rgba(222, 184, 135, .35);
+}
+
+.btn-perfil-atual:hover{
+    transform: none;
+    background: var(--azul-escuro);
+}
+
+/* ==========================================================================
+   Título de página
+   ========================================================================== */
+.titulo-pagina{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 18px;
+    margin-bottom: 26px;
+}
+
+.titulo-pagina h2{
+    font-size: 26px;
+    color: var(--azul-escuro);
+    margin-bottom: 6px;
+}
+
+.titulo-pagina p{
+    font-size: 14px;
+    color: var(--texto-suave);
+}
+
+.btn-exportar{
+    height: 44px;
+    padding: 0 20px;
+    border: none;
+    border-radius: var(--raio-sm);
+    background: var(--azul-escuro);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .3px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: var(--transicao-lenta);
+}
+
+.btn-exportar:hover{
+    background: var(--azul-hover);
+    transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   Seletor de educandos (pills)
+   ========================================================================== */
+.seletor-educandos{
+    display: flex;
+    gap: 12px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+}
+
+.pill{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 40px;
+    padding: 0 18px 0 10px;
+    border-radius: 999px;
+    border: 1px solid var(--borda-forte);
+    background: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    color: #475569;
+    cursor: pointer;
+    transition: var(--transicao-lenta);
+}
+
+.pill:hover{
+    border-color: var(--dourado);
+}
+
+.pill-dot{
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.pill-dot-todos{
+    width: 10px;
+    height: 10px;
+    margin: 0 7px;
+    background: var(--azul-escuro);
+}
+
+.pill-ativa{
+    background: var(--azul-escuro);
+    border-color: var(--azul-escuro);
+    color: #fff;
+}
+
+/* ==========================================================================
+   Cartões de resumo (números em destaque)
+   ========================================================================== */
+.resumo{
+    display: flex;
+    gap: 30px;
+    margin-bottom: 35px;
+    flex-wrap: wrap;
+}
+
+.card-resumo{
+    position: relative;
+    flex: 1;
+    min-width: 200px;
+    min-height: 128px;
+    padding: 22px;
+    background: #fff;
+    border: 1px solid var(--borda);
+    border-radius: var(--raio);
+    box-shadow: var(--sombra-card);
+    overflow: hidden;
+    transition: transform var(--transicao-lenta);
+}
+
+.card-resumo::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: var(--dourado);
+}
+
+.card-resumo:hover{
+    transform: translateY(-5px);
+}
+
+.card-resumo h3{
+    color: var(--texto-suave);
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.card-resumo span{
+    display: block;
+    font-size: 42px;
+    font-weight: bold;
+    color: var(--azul-escuro);
+    line-height: 1.1;
+}
+
+.card-resumo p{
+    margin-top: 6px;
+    font-size: 13px;
+    color: var(--texto-fraco);
+}
+
+.card-ouro::before{ background: burlywood; }
+.card-laranja::before{ background: #e2a03f; }
+.card-vermelho::before{ background: #d9534f; }
+
+/* ==========================================================================
+   Filtros (selects/inputs de pesquisa em tabelas)
+   ========================================================================== */
+.filtros{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.filtros select,
+.filtros input{
+    height: 45px;
+    min-width: 170px;
+    font-size: 14px;
+    padding: 0 15px;
+    border: 1px solid #ddd;
+    border-radius: var(--raio-sm);
+    background: white;
+    outline: none;
+    font-family: inherit;
+}
+
+.filtros select:focus,
+.filtros input:focus{
+    border-color: var(--dourado);
+    box-shadow: 0 0 0 3px rgba(222, 184, 135, .25);
+}
+
+.btn-limpar{
+    height: 45px;
+    padding: 0 18px;
+    border: none;
+    border-radius: var(--raio-sm);
+    background: #e9edf1;
+    color: var(--azul-escuro);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transicao-lenta);
+}
+
+.btn-limpar:hover{
+    background: #dbe1e7;
+}
+
+.sem-resultados{
+    margin-top: 20px;
+    text-align: center;
+    color: var(--texto-suave);
+    font-size: 14px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px dashed #d6d6d6;
+}
+
+/* ==========================================================================
+   Avatares (iniciais em círculo)
+   ========================================================================== */
+.avatar{
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.avatar-grande{
+    width: 68px;
+    height: 68px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--azul-escuro);
+    color: var(--dourado);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+/* ==========================================================================
+   Tabelas — layout fixo para que a largura das colunas não mude quando
+   o conteúdo de uma célula é editado ou atualizado dinamicamente.
+   ========================================================================== */
+table{
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+th{
+    padding: 15px 12px;
+    text-align: left;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--texto-suave);
+    text-transform: uppercase;
+    letter-spacing: .4px;
+    border-bottom: 2px solid var(--borda);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+td{
+    height: 60px;
+    padding: 12px;
+    vertical-align: middle;
+    color: #1e293b;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+tbody tr{
+    border-bottom: 1px solid #f2f2f2;
+    transition: background var(--transicao);
+}
+
+tbody tr:last-child{
+    border-bottom: none;
+}
+
+tbody tr:hover{
+    background: #fafafa;
+}
+
+/* ==========================================================================
+   Estados / badges — largura mínima fixa para que a linha não "salte"
+   quando o texto do estado muda (ex.: Presente → Atraso).
+   Cobre todas as variantes de nome de classe usadas nas páginas.
+   ========================================================================== */
+.presente, .atraso, .falta,
+.status-presente, .status-atraso, .status-falta, .status-ausente,
+.estado{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 88px;
+    height: 28px;
+    padding: 0 12px;
+    border-radius: 15px;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.presente, .status-presente, .estado-positivo{
+    background: #dcfce7;
+    color: #16a34a;
+}
+
+.atraso, .status-atraso{
+    background: #fff2d8;
+    color: #b97700;
+}
+
+.falta, .status-falta, .status-ausente{
+    background: #fcdcdc;
+    color: #a31616;
+}
+
+.estado-info{
+    background: #e5f0ff;
+    color: #1f5fa8;
+}
+
+/* ==========================================================================
+   Botões — reset comum de tipografia/cursor
+   ========================================================================== */
+button{
+    font-family: inherit;
+    cursor: pointer;
+}
+
+/* ==========================================================================
+   Acessibilidade — foco visível consistente em toda a aplicação
+   ========================================================================== */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible{
+    outline: 2px solid var(--dourado);
+    outline-offset: 2px;
+}
+
+/* ==========================================================================
+   Movimento reduzido
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce){
+    *{
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+    }
+}
+
+/* ==========================================================================
+   Responsivo — em ecrãs estreitos o menu já nasce recolhido (ver nav.js)
+   e a área de conteúdo ganha padding menor.
+   ========================================================================== */
+@media (max-width: 860px){
+    .corpo{
+        padding: 28px 20px 40px;
+    }
+    .cabecalho input{
+        width: 100%;
+    }
+}

@@ -1,100 +1,8 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-body{
-    display: flex;
-    font-family: Arial, Helvetica, sans-serif;
-    background: #f5f7fa;
-}
-header{
-    display: flex;
-    justify-content: space-between;
-}
-.corpo {
-    flex: 1;
-    padding: 40px 50px 60px;
-}
+/* ==========================================================================
+   Configurações (config.html) — estilos exclusivos desta página.
+   Depende de base.css (variáveis, cabeçalho, título, avatar) e nav.css.
+   ========================================================================== */
 
-.cabecalho {
-    margin-bottom: 32px;
-}
-.cabecalho .c{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-}
-.cabecalho input{
-    width: 350px;
-    height: 40px;
-    padding: 0 15px;
-    border: 1px solid #d6d6d6;
-    border-radius: 8px;
-    background: #fff;
-    font-size: 14px;
-    outline: none;
-    transition: all .3s ease;
-}
-.cabecalho input:focus{
-    border-color: burlywood;
-    box-shadow: 0 0 0 3px rgba(222, 184, 135, .25);
-}
-.cabecalho input::placeholder{
-    color: #9b9b9b;
-}
-.btn-perfil {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 45px;
-    height: 45px;
-    border: none;
-    border-radius: 50%;
-    background: #1a3341;
-    color: burlywood;
-    text-decoration: none;
-    font-size: 22px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all .3s ease;
-}
-.btn-perfil:hover {
-    transform: scale(1.08);
-    background: #244759;
-}
-.c-sem-pesquisa{
-    justify-content: flex-end;
-}
-.btn-perfil-atual{
-    cursor: default;
-    box-shadow: 0 0 0 3px rgba(222, 184, 135, .35);
-}
-.btn-perfil-atual:hover{
-    transform: none;
-    background: #1a3341;
-}
-
-main{
-    display: flex;
-}
-
-/* Título da página */
-.titulo-pagina{
-    margin-bottom: 26px;
-}
-.titulo-pagina h2{
-    font-size: 26px;
-    color: #1a3341;
-    margin-bottom: 6px;
-}
-.titulo-pagina p{
-    font-size: 14px;
-    color: #6b7280;
-}
-
-/* Grelha de configurações */
 .grelha-config{
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -103,14 +11,15 @@ main{
 
 .painel-config{
     background: #fff;
-    border-radius: 18px;
-    border: 1px solid #ececec;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+    border-radius: var(--raio);
+    border: 1px solid var(--borda);
+    box-shadow: var(--sombra-card);
     padding: 26px 28px;
 }
+
 .painel-config h3{
     font-size: 17px;
-    color: #1a3341;
+    color: var(--azul-escuro);
     margin-bottom: 22px;
 }
 
@@ -121,23 +30,11 @@ main{
     gap: 18px;
     margin-bottom: 24px;
 }
-.avatar-grande{
-    width: 68px;
-    height: 68px;
-    border-radius: 50%;
-    background: #1a3341;
-    color: burlywood;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    font-weight: 700;
-    flex-shrink: 0;
-}
+
 .perfil-editor-acoes p{
     margin-top: 6px;
     font-size: 12px;
-    color: #9aa3ad;
+    color: var(--texto-fraco);
 }
 
 /* Formulário */
@@ -147,66 +44,74 @@ main{
     gap: 18px;
     margin-bottom: 24px;
 }
+
 .campo{
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
+
 .campo label{
     font-size: 13px;
     font-weight: 700;
     color: #475569;
 }
+
 .campo input,
 .campo select{
     height: 44px;
     padding: 0 14px;
     border: 1px solid #ddd;
-    border-radius: 8px;
+    border-radius: var(--raio-sm);
     background: #fbfcfd;
     font-size: 14px;
-    color: #1a3341;
+    color: var(--azul-escuro);
     outline: none;
-    transition: .25s ease;
-}
-.campo input:focus,
-.campo select:focus{
-    border-color: burlywood;
-    box-shadow: 0 0 0 3px rgba(222, 184, 135, .25);
+    transition: var(--transicao);
 }
 
-button{
-    border: none;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: .25s ease;
-    letter-spacing: .3px;
+.campo input:focus,
+.campo select:focus{
+    border-color: var(--dourado);
+    box-shadow: 0 0 0 3px rgba(222, 184, 135, .25);
 }
 
 .btn-guardar{
     height: 44px;
     padding: 0 22px;
-    background: #1a3341;
+    border: none;
+    border-radius: var(--raio-sm);
+    background: var(--azul-escuro);
     color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .3px;
+    transition: var(--transicao-lenta);
 }
+
 .btn-guardar:hover{
-    background: #244759;
+    background: var(--azul-hover);
     transform: translateY(-2px);
 }
 
 .btn-secundario{
     height: 40px;
     padding: 0 18px;
+    border: 1px solid var(--borda-forte);
+    border-radius: var(--raio-sm);
     background: #fff;
-    border: 1px solid #dbe1e6;
     color: #475569;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .3px;
+    transition: var(--transicao-lenta);
 }
+
 .btn-secundario:hover{
-    border-color: burlywood;
-    color: #1a3341;
+    border-color: var(--dourado);
+    color: var(--azul-escuro);
 }
+
 .btn-adicionar{
     margin-top: 18px;
     width: 100%;
@@ -218,6 +123,7 @@ button{
     flex-direction: column;
     gap: 12px;
 }
+
 .educando-item{
     display: flex;
     align-items: center;
@@ -226,38 +132,36 @@ button{
     border-radius: 12px;
     background: #f8fafc;
 }
-.avatar{
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    font-weight: 700;
-    flex-shrink: 0;
-}
+
 .educando-info{
     display: flex;
     flex-direction: column;
     flex: 1;
     gap: 3px;
 }
+
 .educando-info strong{
     font-size: 14px;
-    color: #1a3341;
+    color: var(--azul-escuro);
 }
+
 .educando-info span{
     font-size: 12px;
-    color: #6b7280;
+    color: var(--texto-suave);
 }
+
 .btn-remover{
     height: 34px;
     padding: 0 14px;
-    background: #fff;
     border: 1px solid #f2c6c6;
+    border-radius: var(--raio-sm);
+    background: #fff;
     color: #a31616;
+    font-size: 13px;
+    font-weight: 700;
+    transition: var(--transicao-lenta);
 }
+
 .btn-remover:hover{
     background: #fcdcdc;
 }
@@ -268,20 +172,23 @@ button{
     flex-direction: column;
     gap: 20px;
 }
+
 .toggle-item{
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 20px;
 }
+
 .toggle-item strong{
     font-size: 14px;
-    color: #1a3341;
+    color: var(--azul-escuro);
 }
+
 .toggle-item p{
     margin-top: 4px;
     font-size: 12px;
-    color: #6b7280;
+    color: var(--texto-suave);
 }
 
 .toggle{
@@ -291,19 +198,22 @@ button{
     height: 26px;
     flex-shrink: 0;
 }
+
 .toggle input{
     opacity: 0;
     width: 0;
     height: 0;
 }
+
 .toggle-slider{
     position: absolute;
     cursor: pointer;
     inset: 0;
     background: #d6dbe1;
     border-radius: 999px;
-    transition: .25s ease;
+    transition: var(--transicao-lenta);
 }
+
 .toggle-slider::before{
     content: "";
     position: absolute;
@@ -313,12 +223,23 @@ button{
     top: 3px;
     background: #fff;
     border-radius: 50%;
-    transition: .25s ease;
-    box-shadow: 0 1px 3px rgba(0,0,0,.2);
+    transition: var(--transicao-lenta);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .2);
 }
+
 .toggle input:checked + .toggle-slider{
     background: burlywood;
 }
+
 .toggle input:checked + .toggle-slider::before{
     transform: translateX(18px);
+}
+
+@media (max-width: 860px){
+    .grelha-config{
+        grid-template-columns: 1fr;
+    }
+    .form-grelha{
+        grid-template-columns: 1fr;
+    }
 }

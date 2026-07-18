@@ -5,20 +5,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Relatório | Presence Guard</title>
-    <link rel="stylesheet" href="style/relatorio.css">
+    <link rel="stylesheet" href="style/base.css">
     <link rel="stylesheet" href="style/nav.css">
+    <link rel="stylesheet" href="style/relatorio.css">
+    <script>
+        (function () {
+            try {
+                if (localStorage.getItem("pg-nav-collapsed") === "1") {
+                    document.documentElement.classList.add("nav-collapsed");
+                }
+            } catch (e) {}
+        })();
+    </script>
 </head>
 <body>
     <main>
         <header>
             <nav class="side-nav" aria-label="Menu Principal">
-                <h1 class="nav-brand">PG</h1>
+                <div class="nav-topo">
+                    <span class="nav-brand">PG</span>
+                    <button type="button" id="navToggle" class="nav-toggle" aria-label="Recolher menu" aria-expanded="true">‹</button>
+                </div>
                 <ul>
-                    <li><a href="index.html">Painel</a></li>
-                    <li><a href="presenca.html">Presença</a></li>
-                    <li><a href="calendario.html">Calendário</a></li>
-                    <li><a class="active" href="relatorio.html" aria-current="page">Relatório</a></li>
-                    <li><a href="config.html">Configurações</a></li>
+                    <li><a href="index.html"><span class="icone">🏠</span><span class="rotulo">Painel</span></a></li>
+                    <li><a href="presenca.html"><span class="icone">✅</span><span class="rotulo">Presença</span></a></li>
+                    <li><a href="calendario.html"><span class="icone">📅</span><span class="rotulo">Calendário</span></a></li>
+                    <li><a class="active" href="relatorio.html" aria-current="page"><span class="icone">📊</span><span class="rotulo">Relatório</span></a></li>
+                    <li><a href="config.html"><span class="icone">⚙️</span><span class="rotulo">Configurações</span></a></li>
                 </ul>
             </nav>
 
@@ -175,5 +188,7 @@
             </div>
         </header>
     </main>
+
+    <script src="script/nav.js" defer></script>
 </body>
 </html>
