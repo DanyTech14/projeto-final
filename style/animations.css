@@ -1,0 +1,191 @@
+/* ==========================================================================
+   Presence Guard — Animações
+   Biblioteca partilhada de keyframes, utilitários de entrada e componentes
+   animados (toast, modal). Carregar depois de base.css.
+   ========================================================================== */
+
+@keyframes pg-fade-in{
+    from{ opacity: 0; }
+    to{ opacity: 1; }
+}
+
+@keyframes pg-fade-up{
+    from{ opacity: 0; transform: translateY(14px); }
+    to{ opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pg-scale-in{
+    from{ opacity: 0; transform: scale(.92); }
+    to{ opacity: 1; transform: scale(1); }
+}
+
+@keyframes pg-pop{
+    0%{ transform: scale(1); }
+    35%{ transform: scale(1.18); }
+    100%{ transform: scale(1); }
+}
+
+@keyframes pg-spin{
+    to{ transform: rotate(360deg); }
+}
+
+@keyframes pg-pulse-ring{
+    0%{ box-shadow: 0 0 0 0 rgba(222, 184, 135, .45); }
+    100%{ box-shadow: 0 0 0 10px rgba(222, 184, 135, 0); }
+}
+
+@keyframes pg-slide-in-right{
+    from{ opacity: 0; transform: translateX(18px); }
+    to{ opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pg-collapse{
+    from{ opacity: 1; max-height: 200px; transform: scale(1); }
+    to{ opacity: 0; max-height: 0; transform: scale(.96); margin: 0; padding-top: 0; padding-bottom: 0; }
+}
+
+/* Entrada geral da página */
+body{
+    animation: pg-fade-in .35s ease both;
+}
+
+/* Entrada em cascata para grupos de cartões / linhas — cobre até 12 itens,
+   suficiente para os conjuntos usados no site. Aplicar a classe
+   "entrada-cascata" ao contentor (.cards, .resumo, tbody, etc). */
+.entrada-cascata > *{
+    animation: pg-fade-up .45s ease both;
+}
+.entrada-cascata > *:nth-child(1){ animation-delay: .03s; }
+.entrada-cascata > *:nth-child(2){ animation-delay: .08s; }
+.entrada-cascata > *:nth-child(3){ animation-delay: .13s; }
+.entrada-cascata > *:nth-child(4){ animation-delay: .18s; }
+.entrada-cascata > *:nth-child(5){ animation-delay: .23s; }
+.entrada-cascata > *:nth-child(6){ animation-delay: .28s; }
+.entrada-cascata > *:nth-child(7){ animation-delay: .33s; }
+.entrada-cascata > *:nth-child(8){ animation-delay: .38s; }
+.entrada-cascata > *:nth-child(9){ animation-delay: .43s; }
+.entrada-cascata > *:nth-child(10){ animation-delay: .48s; }
+.entrada-cascata > *:nth-child(n+11){ animation-delay: .5s; }
+
+/* Linha que acaba de ser filtrada/atualizada */
+.pg-realce{
+    animation: pg-fade-up .35s ease both;
+}
+
+/* Linha/cartão a sair (filtro, remoção) */
+.pg-sair{
+    animation: pg-collapse .28s ease forwards;
+    overflow: hidden;
+}
+
+/* Números que fazem contagem — evita saltos bruscos de layout */
+.pg-contagem{
+    font-variant-numeric: tabular-nums;
+}
+
+/* Botão em estado "a processar" */
+.pg-a-processar{
+    position: relative;
+    pointer-events: none;
+    opacity: .75;
+}
+.pg-spinner{
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    margin-right: 8px;
+    border: 2px solid rgba(255, 255, 255, .5);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: pg-spin .7s linear infinite;
+    vertical-align: -2px;
+}
+.pg-spinner-escuro{
+    border: 2px solid rgba(26, 51, 65, .25);
+    border-top-color: var(--azul-escuro);
+}
+
+/* Pulso curto para chamar atenção a um elemento que acabou de mudar */
+.pg-pulso{
+    animation: pg-pop .35s ease;
+}
+
+/* ==========================================================================
+   Toast de notificação
+   ========================================================================== */
+.toast-region{
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    z-index: 300;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none;
+}
+
+.toast{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 220px;
+    max-width: 340px;
+    padding: 14px 18px;
+    border-radius: 12px;
+    background: var(--azul-escuro);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, .22);
+    animation: pg-slide-in-right .3s ease both;
+}
+
+.toast.pg-sair{
+    animation: pg-fade-in .2s ease reverse forwards;
+}
+
+.toast-icone{
+    flex-shrink: 0;
+    font-size: 15px;
+}
+
+.toast-sucesso{ background: #1b7a3d; }
+.toast-erro{ background: #a31616; }
+.toast-info{ background: var(--azul-escuro); }
+
+/* ==========================================================================
+   Modal — animação de entrada/saída
+   ========================================================================== */
+.modal-overlay{
+    animation: pg-fade-in .2s ease both;
+}
+
+.modal-overlay .modal-caixa{
+    animation: pg-scale-in .25s cubic-bezier(.2, .9, .3, 1.2) both;
+}
+
+/* ==========================================================================
+   Detalhe interativo do calendário
+   ========================================================================== */
+.detalhe-item{
+    animation: pg-fade-up .35s ease both;
+}
+
+.dia-entrar{
+    animation: pg-fade-up .3s ease both;
+}
+
+@media (prefers-reduced-motion: reduce){
+    body,
+    .entrada-cascata > *,
+    .pg-realce,
+    .pg-sair,
+    .pg-pulso,
+    .toast,
+    .modal-overlay,
+    .modal-overlay .modal-caixa,
+    .detalhe-item,
+    .dia-entrar{
+        animation: none !important;
+    }
+}

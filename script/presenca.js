@@ -1,163 +1,171 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const corpoTabela = document.getElementById('corpoTabela');
-    const linhas = Array.from(corpoTabela.querySelectorAll('tr'));
+(function () {
+    "use strict";
 
-    const inputPesquisa = document.getElementById('pesquisaAluno');
-    const filtroTurma = document.getElementById('filtroTurma');
-    const filtroStatus = document.getElementById('filtroStatus');
-    const btnLimpar = document.getElementById('limparFiltros');
-    const semResultados = document.getElementById('semResultados');
+    var ROTULOS = { presente: "Presente", atraso: "Atraso", ausente: "Ausente" };
+    var CLASSES = { presente: "status-presente", atraso: "status-atraso", ausente: "status-ausente" };
 
-    const totalPresentes = document.getElementById('totalPresentes');
-    const totalAtrasos = document.getElementById('totalAtrasos');
-    const totalAusentes = document.getElementById('totalAusentes');
+    document.addEventListener("DOMContentLoaded", function () {
+        var corpoTabela = document.getElementById("corpoTabela");
+        var linhas = Array.prototype.slice.call(corpoTabela.querySelectorAll("tr"));
+        var semResultados = document.getElementById("semResultados");
+        var pesquisaInput = document.getElementById("pesquisaAluno");
+        var filtroTurma = document.getElementById("filtroTurma");
+        var filtroStatus = document.getElementById("filtroStatus");
+        var limparBtn = document.getElementById("limparFiltros");
 
-    const modal = document.getElementById('modalVer');
-    const fecharModal = document.getElementById('fecharModal');
-    const modalTitulo = document.getElementById('modalTitulo');
-    const modalTurma = document.getElementById('modalTurma');
-    const modalCartao = document.getElementById('modalCartao');
-    const modalEntrada = document.getElementById('modalEntrada');
-    const modalSaida = document.getElementById('modalSaida');
-    const modalStatus = document.getElementById('modalStatus');
+        var modal = document.getElementById("modalVer");
+        var fecharModalBtn = document.getElementById("fecharModal");
+        var ultimoFocado = null;
 
-    const rotulos = {
-        presente: 'Presente',
-        atraso: 'Atraso',
-        ausente: 'Ausente'
-    };
-
-    // Actualiza os cartões de resumo com base no estado actual (não filtrado) de cada aluno
-    function atualizarResumo() {
-        let presentes = 0, atrasos = 0, ausentes = 0;
-        linhas.forEach(linha => {
-            switch (linha.dataset.status) {
-                case 'presente': presentes++; break;
-                case 'atraso': atrasos++; break;
-                case 'ausente': ausentes++; break;
-            }
-        });
-        totalPresentes.textContent = presentes;
-        totalAtrasos.textContent = atrasos;
-        totalAusentes.textContent = ausentes;
-    }
-
-    // Aplica pesquisa por nome + filtros de turma/estado, mostrando/escondendo linhas
-    function aplicarFiltros() {
-        const termo = inputPesquisa.value.trim().toLowerCase();
-        const turma = filtroTurma.value;
-        const status = filtroStatus.value;
-        let visiveis = 0;
-
-        linhas.forEach(linha => {
-            const nomeCoincide = linha.dataset.aluno.toLowerCase().includes(termo);
-            const turmaCoincide = turma === 'todas' || linha.dataset.turma === turma;
-            const statusCoincide = status === 'todos' || linha.dataset.status === status;
-            const mostrar = nomeCoincide && turmaCoincide && statusCoincide;
-
-            linha.hidden = !mostrar;
-            if (mostrar) visiveis++;
-        });
-
-        semResultados.hidden = visiveis !== 0;
-    }
-
-    inputPesquisa.addEventListener('input', aplicarFiltros);
-    filtroTurma.addEventListener('change', aplicarFiltros);
-    filtroStatus.addEventListener('change', aplicarFiltros);
-
-    btnLimpar.addEventListener('click', () => {
-        inputPesquisa.value = '';
-        filtroTurma.value = 'todas';
-        filtroStatus.value = 'todos';
-        aplicarFiltros();
-    });
-
-    // Botão "Ver": abre o modal com os detalhes da linha
-    corpoTabela.addEventListener('click', (evento) => {
-        const botaoVer = evento.target.closest('.btn-ver');
-        if (!botaoVer) return;
-
-        const linha = botaoVer.closest('tr');
-        modalTitulo.textContent = linha.dataset.aluno;
-        modalTurma.textContent = linha.dataset.turma;
-        modalCartao.textContent = linha.children[2].textContent;
-        modalEntrada.textContent = linha.querySelector('.col-entrada').textContent;
-        modalSaida.textContent = linha.querySelector('.col-saida').textContent;
-        modalStatus.textContent = rotulos[linha.dataset.status] || linha.dataset.status;
-
-        modal.hidden = false;
-    });
-
-    function fechar() { modal.hidden = true; }
-    fecharModal.addEventListener('click', fechar);
-    modal.addEventListener('click', (evento) => {
-        if (evento.target === modal) fechar();
-    });
-    document.addEventListener('keydown', (evento) => {
-        if (evento.key === 'Escape' && !modal.hidden) fechar();
-    });
-
-    // Botão "Editar": alterna entre modo leitura e modo edição na própria linha
-    corpoTabela.addEventListener('click', (evento) => {
-        const botaoEditar = evento.target.closest('.btn-edt');
-        if (!botaoEditar) return;
-
-        const linha = botaoEditar.closest('tr');
-        const emEdicao = botaoEditar.classList.contains('a-editar');
-
-        if (!emEdicao) {
-            entrarModoEdicao(linha, botaoEditar);
-        } else {
-            guardarEdicao(linha, botaoEditar);
+        /* ---------- Totais animados ---------- */
+        function atualizarTotais() {
+            var contagem = { presente: 0, atraso: 0, ausente: 0 };
+            linhas.forEach(function (tr) {
+                if (contagem.hasOwnProperty(tr.dataset.status)) {
+                    contagem[tr.dataset.status]++;
+                }
+            });
+            PG.contarAte(document.getElementById("totalPresentes"), contagem.presente, { duracao: 500 });
+            PG.contarAte(document.getElementById("totalAtrasos"), contagem.atraso, { duracao: 500 });
+            PG.contarAte(document.getElementById("totalAusentes"), contagem.ausente, { duracao: 500 });
         }
+
+        /* ---------- Filtros + pesquisa ---------- */
+        function aplicarFiltros() {
+            var termo = pesquisaInput.value.trim().toLowerCase();
+            var turma = filtroTurma.value;
+            var status = filtroStatus.value;
+            var visiveis = 0;
+
+            linhas.forEach(function (tr) {
+                var nome = (tr.dataset.aluno || "").toLowerCase();
+                var correspondeTermo = !termo || nome.indexOf(termo) !== -1;
+                var correspondeTurma = turma === "todas" || tr.dataset.turma === turma;
+                var correspondeStatus = status === "todos" || tr.dataset.status === status;
+                var mostrar = correspondeTermo && correspondeTurma && correspondeStatus;
+
+                if (mostrar) {
+                    tr.style.display = "";
+                    tr.classList.remove("pg-sair");
+                    tr.classList.add("pg-realce");
+                    visiveis++;
+                } else {
+                    tr.style.display = "none";
+                }
+            });
+
+            semResultados.hidden = visiveis !== 0;
+        }
+
+        var aplicarFiltrosComDebounce = PG.debounce(aplicarFiltros, 150);
+
+        pesquisaInput.addEventListener("input", aplicarFiltrosComDebounce);
+        filtroTurma.addEventListener("change", aplicarFiltros);
+        filtroStatus.addEventListener("change", aplicarFiltros);
+        limparBtn.addEventListener("click", function () {
+            pesquisaInput.value = "";
+            filtroTurma.value = "todas";
+            filtroStatus.value = "todos";
+            aplicarFiltros();
+            PG.toast("Filtros limpos.", "info");
+        });
+
+        /* ---------- Edição inline ---------- */
+        function iniciarEdicao(tr) {
+            var colEntrada = tr.querySelector(".col-entrada");
+            var colSaida = tr.querySelector(".col-saida");
+            var colStatus = tr.querySelector(".col-status");
+            var statusAtual = tr.dataset.status;
+
+            var valorEntrada = colEntrada.textContent.trim();
+            var valorSaida = colSaida.textContent.trim();
+
+            colEntrada.innerHTML =
+                '<input type="text" class="editar-input" value="' + valorEntrada + '" placeholder="--">';
+            colSaida.innerHTML =
+                '<input type="text" class="editar-input" value="' + valorSaida + '" placeholder="--">';
+            colStatus.innerHTML =
+                '<select class="editar-select">' +
+                '<option value="presente"' + (statusAtual === "presente" ? " selected" : "") + ">Presente</option>" +
+                '<option value="atraso"' + (statusAtual === "atraso" ? " selected" : "") + ">Atraso</option>" +
+                '<option value="ausente"' + (statusAtual === "ausente" ? " selected" : "") + ">Ausente</option>" +
+                "</select>";
+
+            var botao = tr.querySelector(".btn-edt");
+            botao.textContent = "Guardar";
+            botao.classList.add("a-editar");
+            colEntrada.querySelector("input").focus();
+        }
+
+        function guardarEdicao(tr) {
+            var colEntrada = tr.querySelector(".col-entrada");
+            var colSaida = tr.querySelector(".col-saida");
+            var colStatus = tr.querySelector(".col-status");
+            var inputEntrada = colEntrada.querySelector("input");
+            var inputSaida = colSaida.querySelector("input");
+            var select = colStatus.querySelector("select");
+            var novoStatus = select.value;
+
+            colEntrada.textContent = inputEntrada.value.trim() || "--";
+            colSaida.textContent = inputSaida.value.trim() || "--";
+            colStatus.innerHTML = '<span class="' + CLASSES[novoStatus] + '">' + ROTULOS[novoStatus] + "</span>";
+            tr.dataset.status = novoStatus;
+
+            var botao = tr.querySelector(".btn-edt");
+            botao.textContent = "Editar";
+            botao.classList.remove("a-editar");
+
+            tr.classList.add("pg-pulso");
+            window.setTimeout(function () {
+                tr.classList.remove("pg-pulso");
+            }, 400);
+
+            atualizarTotais();
+            aplicarFiltros();
+            PG.toast("Registo de " + tr.dataset.aluno + " atualizado.", "sucesso");
+        }
+
+        /* ---------- Modal de detalhes ---------- */
+        function abrirModal(tr) {
+            document.getElementById("modalTitulo").textContent = tr.dataset.aluno;
+            document.getElementById("modalTurma").textContent = tr.dataset.turma;
+            document.getElementById("modalCartao").textContent = tr.children[2].textContent.trim();
+            document.getElementById("modalEntrada").textContent = tr.querySelector(".col-entrada").textContent.trim();
+            document.getElementById("modalSaida").textContent = tr.querySelector(".col-saida").textContent.trim();
+            document.getElementById("modalStatus").innerHTML = tr.querySelector(".col-status").innerHTML;
+
+            ultimoFocado = document.activeElement;
+            modal.hidden = false;
+            fecharModalBtn.focus();
+        }
+
+        function fecharModal() {
+            modal.hidden = true;
+            if (ultimoFocado) ultimoFocado.focus();
+        }
+
+        fecharModalBtn.addEventListener("click", fecharModal);
+        modal.addEventListener("click", function (evento) {
+            if (evento.target === modal) fecharModal();
+        });
+        document.addEventListener("keydown", function (evento) {
+            if (evento.key === "Escape" && !modal.hidden) fecharModal();
+        });
+
+        /* ---------- Ligações por linha ---------- */
+        linhas.forEach(function (tr) {
+            tr.querySelector(".btn-ver").addEventListener("click", function () {
+                abrirModal(tr);
+            });
+            tr.querySelector(".btn-edt").addEventListener("click", function (evento) {
+                if (evento.currentTarget.classList.contains("a-editar")) {
+                    guardarEdicao(tr);
+                } else {
+                    iniciarEdicao(tr);
+                }
+            });
+        });
+
+        atualizarTotais();
     });
-
-    function entrarModoEdicao(linha, botao) {
-        const celEntrada = linha.querySelector('.col-entrada');
-        const celSaida = linha.querySelector('.col-saida');
-        const celStatus = linha.querySelector('.col-status');
-
-        const valorEntrada = celEntrada.textContent.trim();
-        const valorSaida = celSaida.textContent.trim();
-        const statusAtual = linha.dataset.status;
-
-        celEntrada.innerHTML = `<input type="text" class="editar-input" value="${valorEntrada}">`;
-        celSaida.innerHTML = `<input type="text" class="editar-input" value="${valorSaida}">`;
-        celStatus.innerHTML = `
-            <select class="editar-select">
-                <option value="presente" ${statusAtual === 'presente' ? 'selected' : ''}>Presente</option>
-                <option value="atraso" ${statusAtual === 'atraso' ? 'selected' : ''}>Atraso</option>
-                <option value="ausente" ${statusAtual === 'ausente' ? 'selected' : ''}>Ausente</option>
-            </select>`;
-
-        botao.textContent = 'Guardar';
-        botao.classList.add('a-editar');
-    }
-
-    function guardarEdicao(linha, botao) {
-        const celEntrada = linha.querySelector('.col-entrada');
-        const celSaida = linha.querySelector('.col-saida');
-        const celStatus = linha.querySelector('.col-status');
-
-        const novaEntrada = celEntrada.querySelector('input').value.trim() || '--';
-        const novaSaida = celSaida.querySelector('input').value.trim() || '--';
-        const novoStatus = celStatus.querySelector('select').value;
-
-        celEntrada.textContent = novaEntrada;
-        celSaida.textContent = novaSaida;
-        celStatus.innerHTML = `<span class="status-${novoStatus}">${rotulos[novoStatus]}</span>`;
-
-        linha.dataset.status = novoStatus;
-
-        botao.textContent = 'Editar';
-        botao.classList.remove('a-editar');
-
-        atualizarResumo();
-        aplicarFiltros();
-    }
-
-    // Estado inicial
-    atualizarResumo();
-    aplicarFiltros();
-});
+})();
