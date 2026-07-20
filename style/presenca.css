@@ -147,7 +147,7 @@
    "Entrada" e "Saída" caberem numa só linha no cabeçalho. */
 .table-presencas th:nth-child(1), .table-presencas td:nth-child(1){ width: auto; }
 .table-presencas th:nth-child(2), .table-presencas td:nth-child(2){ width: 90px; }
-.table-presencas th:nth-child(3), .table-presencas td:nth-child(3){ width: 80px; }
+.table-presencas th:nth-child(3), .table-presencas td:nth-child(3){ width: 90px; }
 .table-presencas th:nth-child(4), .table-presencas td:nth-child(4){ width: 110px; }
 .table-presencas th:nth-child(5), .table-presencas td:nth-child(5){ width: 110px; }
 .table-presencas th:nth-child(6), .table-presencas td:nth-child(6){ width: 150px; }
