@@ -5,47 +5,82 @@
         var DADOS = window.PG_DADOS;
         if (!DADOS) return;
 
-        // O Painel ainda não tem seletor de educando (ver seletor-educandos no
-        // Relatório), por isso mostra por omissão o primeiro educando da lista.
-        // Para agregar os 3 educandos, trocar este filtro por DADOS.DATASET todo.
-        var alunoPrincipal = DADOS.ESTUDANTES[0];
-        var registosAluno = DADOS.DATASET.filter(function (r) {
-            return r.aluno.id === alunoPrincipal.id;
-        });
-
-        // Mesmo critério de "mês atual" usado por omissão no Relatório, para
-        // que os dois ecrãs mostrem sempre o mesmo período.
         var mesAtual = DADOS.MESES_PT[DADOS.HOJE.getMonth()] + " " + DADOS.HOJE.getFullYear();
-        var registosMes = registosAluno.filter(function (r) {
-            return DADOS.MESES_PT[r.data.getMonth()] + " " + r.data.getFullYear() === mesAtual;
-        });
 
-        var totalDias = registosMes.length;
-        var diasPresentes = registosMes.filter(function (r) { return r.status === "presente"; }).length;
-        var diasAtraso = registosMes.filter(function (r) { return r.status === "atraso"; }).length;
-        var diasFalta = registosMes.filter(function (r) { return r.status === "falta"; }).length;
-        var percentagem = totalDias ? Math.round(((diasPresentes + diasAtraso) / totalDias) * 100) : 0;
+        function registosDoAluno(alunoId) {
+            return DADOS.DATASET.filter(function (r) { return r.aluno.id === alunoId; });
+        }
 
-        // ---- Cartões "Presenças / Atrasos / Faltas" ----
-        var cardPresencasValor = document.querySelector(".cards .card:nth-child(1) h2");
-        var cardPresencasTexto = document.querySelector(".cards .card:nth-child(1) p");
-        var cardAtrasosValor = document.querySelector(".cards .card:nth-child(2) h2");
-        var cardFaltasValor = document.querySelector(".cards .card:nth-child(3) h2");
+        function registosDoMes(registosAluno) {
+            return registosAluno.filter(function (r) {
+                return DADOS.MESES_PT[r.data.getMonth()] + " " + r.data.getFullYear() === mesAtual;
+            });
+        }
 
-        if (cardPresencasValor) cardPresencasValor.textContent = percentagem + "%";
-        if (cardPresencasTexto) cardPresencasTexto.textContent = diasPresentes + " dias presentes";
-        if (cardAtrasosValor) cardAtrasosValor.textContent = String(diasAtraso);
-        if (cardFaltasValor) cardFaltasValor.textContent = String(diasFalta);
+        /* ---------- Cartão de resumo — um por educando ---------- */
+        var containerCards = document.getElementById("cardsAlunos");
 
-        // ---- Cartões "Entrada / Saída" de hoje ----
-        var registoHoje = registosAluno.filter(function (r) {
-            return DADOS.formatarData(r.data) === DADOS.formatarData(DADOS.HOJE);
-        })[0];
+        if (containerCards) {
+            containerCards.innerHTML = "";
 
+            DADOS.ESTUDANTES.forEach(function (aluno) {
+                var registosAluno = registosDoAluno(aluno.id);
+                var registosMes = registosDoMes(registosAluno);
+
+                var totalDias = registosMes.length;
+                var diasPresentes = registosMes.filter(function (r) { return r.status === "presente"; }).length;
+                var diasAtraso = registosMes.filter(function (r) { return r.status === "atraso"; }).length;
+                var diasFalta = registosMes.filter(function (r) { return r.status === "falta"; }).length;
+                var percentagem = totalDias ? Math.round(((diasPresentes + diasAtraso) / totalDias) * 100) : 0;
+
+                var card = document.createElement("div");
+                card.className = "card-aluno";
+                card.dataset.id = aluno.id;
+                card.innerHTML =
+                    '<div class="card-aluno-cabecalho">' +
+                        '<span class="avatar" style="background:' + aluno.fundo + ";color:" + aluno.cor + '">' + aluno.iniciais + "</span>" +
+                        '<div class="card-aluno-info"><strong>' + aluno.nome + "</strong><span>" + aluno.turma + "</span></div>" +
+                    "</div>" +
+                    '<div class="card-aluno-stats">' +
+                        '<div><strong class="valor-presenca">0%</strong><span>Presença</span></div>' +
+                        '<div><strong class="valor-atrasos">0</strong><span>Atrasos</span></div>' +
+                        '<div><strong class="valor-faltas">0</strong><span>Faltas</span></div>' +
+                    "</div>";
+
+                containerCards.appendChild(card);
+
+                PG.contarAte(card.querySelector(".valor-presenca"), percentagem, { sufixo: "%", duracao: 800 });
+                PG.contarAte(card.querySelector(".valor-atrasos"), diasAtraso, { duracao: 800 });
+                PG.contarAte(card.querySelector(".valor-faltas"), diasFalta, { duracao: 800 });
+            });
+        }
+
+        /* ---------- Seletor de educando — controla Entrada/Saída + tabela ---------- */
+        var pills = Array.prototype.slice.call(document.querySelectorAll(".seletor-educandos .pill"));
+        var tabela = document.querySelector(".relatorio table tbody");
+        var tituloResumo = document.getElementById("tituloResumoAluno");
         var cardEntrada = document.querySelector(".entrada .card2:nth-child(1)");
         var cardSaida = document.querySelector(".entrada .card2:nth-child(2)");
+        var input = document.querySelector(".cabecalho input");
 
-        if (registoHoje && cardEntrada && cardSaida) {
+        var estado = { estudante: DADOS.ESTUDANTES[0].id };
+        var linhas = [];
+        var semResultados = null;
+
+        function alunoAtual() {
+            return DADOS.ESTUDANTES.filter(function (a) { return a.id === estado.estudante; })[0];
+        }
+
+        function renderizarEntradaSaida() {
+            if (!cardEntrada || !cardSaida) return;
+
+            var registosAluno = registosDoAluno(estado.estudante);
+            var registoHoje = registosAluno.filter(function (r) {
+                return DADOS.formatarData(r.data) === DADOS.formatarData(DADOS.HOJE);
+            })[0];
+
+            if (!registoHoje) return;
+
             var horaEntrada = cardEntrada.querySelector(".hora");
             var dataEntrada = cardEntrada.querySelector(".data");
             var estadoEntrada = cardEntrada.querySelector(".estado");
@@ -82,43 +117,8 @@
             }
         }
 
-        // ---- Tabela "Resumo de Frequência" — últimos 5 registos do educando ----
-        var tabela = document.querySelector(".relatorio table tbody");
-        if (tabela) {
-            tabela.innerHTML = "";
-            registosAluno.slice(0, 5).forEach(function (r) {
-                var tr = document.createElement("tr");
-                tr.innerHTML =
-                    "<td>" + DADOS.formatarData(r.data) + "</td>" +
-                    "<td>" + r.entrada + "</td>" +
-                    "<td>" + r.saida + "</td>" +
-                    '<td><span class="' + r.status + '">' + DADOS.ROTULOS_STATUS[r.status] + "</span></td>";
-                tabela.appendChild(tr);
-            });
-        }
-
-        // ---- Animação de contagem dos cartões (mantém comportamento existente) ----
-        document.querySelectorAll(".cards .card h2").forEach(function (el) {
-            var texto = el.textContent.trim();
-            var sufixo = texto.endsWith("%") ? "%" : "";
-            var alvo = parseInt(texto, 10);
-            if (!isNaN(alvo)) {
-                el.textContent = "0" + sufixo;
-                PG.contarAte(el, alvo, { sufixo: sufixo, duracao: 800 });
-            }
-        });
-
-        // ---- Pesquisa/filtro na tabela (mantém comportamento existente) ----
-        var input = document.querySelector(".cabecalho input");
-        if (!input || !tabela) return;
-
-        var linhas = Array.prototype.slice.call(tabela.querySelectorAll("tr"));
-        var semResultados = document.createElement("tr");
-        semResultados.hidden = true;
-        semResultados.innerHTML = '<td colspan="4" style="text-align:center;color:var(--texto-suave);padding:26px 12px;">Nenhum registo encontrado.</td>';
-        tabela.appendChild(semResultados);
-
-        var aplicarFiltro = PG.debounce(function () {
+        function aplicarFiltroPesquisa() {
+            if (!input) return;
             var termo = input.value.trim().toLowerCase();
             var visiveis = 0;
 
@@ -134,9 +134,67 @@
                 }
             });
 
-            semResultados.hidden = visiveis !== 0;
-        }, 150);
+            if (semResultados) semResultados.hidden = visiveis !== 0;
+        }
 
-        input.addEventListener("input", aplicarFiltro);
+        function renderizarTabela() {
+            if (!tabela) return;
+
+            var aluno = alunoAtual();
+            if (tituloResumo && aluno) {
+                tituloResumo.textContent = "Resumo de Frequência — " + aluno.nome.split(" ")[0];
+            }
+
+            var registosAluno = registosDoAluno(estado.estudante);
+
+            tabela.innerHTML = "";
+            registosAluno.slice(0, 5).forEach(function (r) {
+                var tr = document.createElement("tr");
+                tr.innerHTML =
+                    "<td>" + DADOS.formatarData(r.data) + "</td>" +
+                    "<td>" + r.entrada + "</td>" +
+                    "<td>" + r.saida + "</td>" +
+                    '<td><span class="' + r.status + '">' + DADOS.ROTULOS_STATUS[r.status] + "</span></td>";
+                tabela.appendChild(tr);
+            });
+
+            semResultados = document.createElement("tr");
+            semResultados.hidden = true;
+            semResultados.innerHTML = '<td colspan="4" style="text-align:center;color:var(--texto-suave);padding:26px 12px;">Nenhum registo encontrado.</td>';
+            tabela.appendChild(semResultados);
+
+            linhas = Array.prototype.slice.call(tabela.querySelectorAll("tr")).filter(function (tr) {
+                return tr !== semResultados;
+            });
+
+            aplicarFiltroPesquisa();
+        }
+
+        function selecionarAluno(id) {
+            estado.estudante = id;
+            renderizarEntradaSaida();
+            renderizarTabela();
+        }
+
+        pills.forEach(function (pill, indicePill) {
+            pill.addEventListener("click", function () {
+                pills.forEach(function (p) {
+                    p.classList.remove("pill-ativa");
+                    p.setAttribute("aria-selected", "false");
+                });
+                pill.classList.add("pill-ativa");
+                pill.setAttribute("aria-selected", "true");
+
+                var aluno = DADOS.ESTUDANTES[indicePill];
+                if (aluno) selecionarAluno(aluno.id);
+            });
+        });
+
+        renderizarEntradaSaida();
+        renderizarTabela();
+
+        if (input) {
+            input.addEventListener("input", PG.debounce(aplicarFiltroPesquisa, 150));
+        }
     });
 })();

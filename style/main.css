@@ -1,20 +1,21 @@
 /* ==========================================================================
    Painel (index.html) — estilos exclusivos desta página.
-   Depende de base.css (variáveis, cabeçalho, tabela, badges) e nav.css.
+   Depende de base.css (variáveis, cabeçalho, título, pills, tabela, badges,
+   avatar) e nav.css.
    ========================================================================== */
 
-.cards{
+/* ---------- Cartões de resumo por educando ---------- */
+.cards-alunos{
     display: flex;
     gap: 30px;
-    margin-bottom: 35px;
+    margin-bottom: 28px;
     flex-wrap: wrap;
 }
 
-.card{
+.card-aluno{
     position: relative;
     flex: 1;
-    min-width: 180px;
-    height: 160px;
+    min-width: 240px;
     padding: 22px;
     background: white;
     border: 1px solid var(--borda);
@@ -24,11 +25,7 @@
     transition: transform var(--transicao-lenta);
 }
 
-.card:hover{
-    transform: translateY(-5px);
-}
-
-.card::before{
+.card-aluno::before{
     content: "";
     position: absolute;
     top: 0;
@@ -38,23 +35,68 @@
     background: burlywood;
 }
 
-.card h1{
-    margin-bottom: 18px;
-    font-size: 18px;
-    color: #777;
+.card-aluno:hover{
+    transform: translateY(-5px);
 }
 
-.card h2{
-    margin-bottom: 8px;
-    font-size: 46px;
+.card-aluno-cabecalho{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.card-aluno-info{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.card-aluno-info strong{
+    font-size: 15px;
     color: var(--azul-escuro);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
-.card p{
-    font-size: 14px;
-    color: #999;
+.card-aluno-info span{
+    font-size: 12px;
+    color: var(--texto-suave);
 }
 
+.card-aluno-stats{
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding-top: 16px;
+    border-top: 1px solid var(--borda);
+}
+
+.card-aluno-stats > div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    flex: 1;
+}
+
+.card-aluno-stats strong{
+    font-size: 22px;
+    font-weight: bold;
+    color: var(--azul-escuro);
+    font-variant-numeric: tabular-nums;
+}
+
+.card-aluno-stats span{
+    font-size: 11px;
+    color: var(--texto-fraco);
+    text-transform: uppercase;
+    letter-spacing: .3px;
+}
+
+/* ---------- Entrada / Saída do educando selecionado ---------- */
 .entrada{
     display: flex;
     gap: 30px;
@@ -130,6 +172,7 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 25px;
+    gap: 12px;
 }
 
 .titulo-relatorio h1{
@@ -143,6 +186,7 @@
     color: var(--azul-escuro);
     text-decoration: none;
     font-weight: bold;
+    white-space: nowrap;
 }
 
 .titulo-relatorio a:hover{

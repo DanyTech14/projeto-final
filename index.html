@@ -59,37 +59,40 @@
                     </div>
                 </div>
 
-                <section class="cards entrada-cascata">
-                   <div class="card">
-                       <h1>Presenças</h1>
-                       <h2>92%</h2>
-                       <p>19 dias presentes</p>
-                   </div>
-                   <div class="card">
-                       <h1>Atrasos</h1>
-                       <h2>2</h2>
-                       <p>Neste mês</p>
-                   </div>
-                   <div class="card">
-                       <h1>Faltas</h1>
-                       <h2>3</h2>
-                       <p>Injustificadas</p>
-                   </div>
-               </section>
+                <div class="titulo-pagina entrada-cascata">
+                    <div>
+                        <h2>Painel</h2>
+                        <p>Resumo de assiduidade de todos os educandos associados.</p>
+                    </div>
+                </div>
+
+                <section class="cards-alunos entrada-cascata" id="cardsAlunos">
+                    <!-- Gerado por script/painel.js — um cartão por educando -->
+                </section>
+
+                <div class="seletor-educandos entrada-cascata" role="tablist" aria-label="Ver detalhe de um educando">
+                    <button class="pill pill-ativa" role="tab" aria-selected="true">
+                        <span class="pill-dot" style="background:#2d5064">JS</span> João
+                    </button>
+                    <button class="pill" role="tab" aria-selected="false">
+                        <span class="pill-dot" style="background:#a15b8f">JS</span> Joana
+                    </button>
+                    <button class="pill" role="tab" aria-selected="false">
+                        <span class="pill-dot" style="background:#4a7c59">RS</span> Rafael
+                    </button>
+                </div>
 
                <section class="entrada entrada-cascata">
                    <div class="card2">
 
                         <h1>Entrada</h1>
 
-                        <div class="hora">
-                            07:28
-                        </div>
+                        <div class="hora">--:--</div>
 
                         <div class="rodape-card">
 
                             <div class="data">
-                                <strong>📅</strong> 16/07/2026
+                                <strong>📅</strong> --
                             </div>
 
                             <span class="estado estado-positivo">
@@ -104,14 +107,12 @@
 
                         <h1>Saída</h1>
 
-                        <div class="hora">
-                            12:35
-                        </div>
+                        <div class="hora">--:--</div>
 
                         <div class="rodape-card">
 
                             <div class="data">
-                                <strong>📅</strong> 16/07/2026
+                                <strong>📅</strong> --
                             </div>
 
                             <span class="estado estado-info">
@@ -126,7 +127,7 @@
                <section class="relatorio">
 
                     <div class="titulo-relatorio">
-                        <h1>Resumo de Frequência</h1>
+                        <h1 id="tituloResumoAluno">Resumo de Frequência</h1>
                         <a href="relatorio.html">Ver tudo</a>
                     </div>
 
@@ -144,42 +145,7 @@
                         </thead>
 
                         <tbody>
-
-                            <tr>
-                                <td>16/07/2026</td>
-                                <td>07:28</td>
-                                <td>12:35</td>
-                                <td><span class="presente">Presente</span></td>
-                            </tr>
-
-                            <tr>
-                                <td>15/07/2026</td>
-                                <td>07:34</td>
-                                <td>12:31</td>
-                                <td><span class="atraso">Atraso</span></td>
-                            </tr>
-
-                            <tr>
-                                <td>14/07/2026</td>
-                                <td>07:26</td>
-                                <td>12:30</td>
-                                <td><span class="presente">Presente</span></td>
-                            </tr>
-
-                            <tr>
-                                <td>13/07/2026</td>
-                                <td>--</td>
-                                <td>--</td>
-                                <td><span class="falta">Falta</span></td>
-                            </tr>
-
-                            <tr>
-                                <td>12/07/2026</td>
-                                <td>07:25</td>
-                                <td>12:32</td>
-                                <td><span class="presente">Presente</span></td>
-                            </tr>
-
+                            <!-- Gerado por script/painel.js -->
                         </tbody>
 
                     </table>

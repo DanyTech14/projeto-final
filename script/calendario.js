@@ -1,96 +1,17 @@
 (function () {
     "use strict";
 
-    var MESES_PT = [
-        "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
-        "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
-    ];
-    var DIAS_PT = ["domingo", "segunda", "terça", "quarta", "quinta", "sexta", "sábado"];
-
-    var ESTUDANTES = [
-        { id: "joao", nome: "João Silvestre", iniciais: "JS", cor: "#2d5064", fundo: "#e4ecf1" },
-        { id: "joana", nome: "Joana Silvestre", iniciais: "JS", cor: "#a15b8f", fundo: "#f2e6ef" },
-        { id: "rafael", nome: "Rafael Silvestre", iniciais: "RS", cor: "#4a7c59", fundo: "#e6efe8" }
-    ];
-
-    var HOJE = new Date(2026, 6, 16);
-
-    var AGREGADO_JULHO_2026 = {
-        1: "presente", 2: "presente", 3: "atraso",
-        6: "presente", 7: "presente", 8: "presente", 9: "falta", 10: "presente",
-        13: "falta", 14: "presente", 15: "atraso", 16: "presente"
-    };
-
-    var ROTULOS_STATUS = { presente: "Presente", atraso: "Atraso", falta: "Falta" };
-
-    function hash(texto) {
-        var h = 0;
-        for (var i = 0; i < texto.length; i++) {
-            h = (h * 31 + texto.charCodeAt(i)) >>> 0;
-        }
-        return h;
-    }
-
-    function pad(n) {
-        return n < 10 ? "0" + n : String(n);
-    }
-
-    function statusPseudoAleatorio(dataStr, indice) {
-        var r = hash(dataStr + "#" + indice) % 100;
-        if (r < 6) return "falta";
-        if (r < 18) return "atraso";
-        return "presente";
-    }
-
-    function obterStatusDia(ano, mesIndice0, dia, indiceAluno, dataStr) {
-        if (ano === 2026 && mesIndice0 === 6 && AGREGADO_JULHO_2026.hasOwnProperty(dia)) {
-            var agregado = AGREGADO_JULHO_2026[dia];
-            if (agregado === "presente") return "presente";
-            var especial = dia % ESTUDANTES.length;
-            return indiceAluno === especial ? agregado : "presente";
-        }
-        return statusPseudoAleatorio(dataStr, indiceAluno);
-    }
-
-    function gerarHorarios(status, dataStr, indice) {
-        if (status === "falta") return { entrada: "--", saida: "--" };
-        var h = hash(dataStr + "-h-" + indice);
-        var minEntrada = 15 + (h % 30);
-        if (status === "atraso") minEntrada += 20;
-        var minSaida = 5 + ((h >> 3) % 30);
-        return {
-            entrada: "07:" + pad(minEntrada % 60),
-            saida: "12:" + pad(minSaida)
-        };
-    }
-
-    function gerarRegistosDia(ano, mesIndice0, dia) {
-        var data = new Date(ano, mesIndice0, dia);
-        var diaSemana = data.getDay();
-
-        if (diaSemana === 0 || diaSemana === 6) {
-            return { tipo: "fds", registos: [] };
-        }
-        if (data > HOJE) {
-            return { tipo: "vazio", registos: [] };
-        }
-
-        var dataStr = ano + "-" + (mesIndice0 + 1) + "-" + dia;
-        var registos = ESTUDANTES.map(function (aluno, indice) {
-            var status = obterStatusDia(ano, mesIndice0, dia, indice, dataStr);
-            var horarios = gerarHorarios(status, dataStr, indice);
-            return { aluno: aluno, status: status, entrada: horarios.entrada, saida: horarios.saida };
-        });
-        return { tipo: "letivo", registos: registos };
-    }
-
-    function statusAgregado(registos) {
-        if (registos.some(function (r) { return r.status === "falta"; })) return "falta";
-        if (registos.some(function (r) { return r.status === "atraso"; })) return "atraso";
-        return "presente";
-    }
-
     document.addEventListener("DOMContentLoaded", function () {
+        var DADOS = window.PG_DADOS;
+        if (!DADOS) return;
+
+        var MESES_PT = DADOS.MESES_PT;
+        var ESTUDANTES = DADOS.ESTUDANTES;
+        var HOJE = DADOS.HOJE;
+        var ROTULOS_STATUS = DADOS.ROTULOS_STATUS;
+        var obterRegistoDia = DADOS.obterRegistoDia;
+        var statusAgregado = DADOS.statusAgregado;
+
         var tituloMes = document.querySelector(".mes-nav h3");
         var grid = document.querySelector(".grelha-calendario");
         var btnAnterior = document.querySelector('.mes-btn[aria-label="Mês anterior"]');
@@ -109,7 +30,6 @@
         };
 
         function renderizarDetalhe() {
-            var info = gerarRegistosDia(estado.ano, estado.mes, estado.diaSelecionado);
             var dataTexto = estado.diaSelecionado + " de " + MESES_PT[estado.mes];
 
             if (!estado.diaSelecionado) {
@@ -118,6 +38,7 @@
                 return;
             }
 
+            var info = obterRegistoDia(estado.ano, estado.mes, estado.diaSelecionado);
             detalheTitulo.textContent = "Detalhes de " + dataTexto;
 
             if (info.tipo === "fds") {
@@ -166,7 +87,7 @@
                     continue;
                 }
 
-                var info = gerarRegistosDia(estado.ano, estado.mes, dia);
+                var info = obterRegistoDia(estado.ano, estado.mes, dia);
                 var eHoje =
                     estado.ano === HOJE.getFullYear() && estado.mes === HOJE.getMonth() && dia === HOJE.getDate();
                 var eSelecionado = dia === estado.diaSelecionado;

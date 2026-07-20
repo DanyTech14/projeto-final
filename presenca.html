@@ -61,6 +61,28 @@
                 </div>
             </div>
 
+            <div class="titulo-pagina entrada-cascata">
+                <div>
+                    <h2>Presenças</h2>
+                    <p>Consulte e justifique a presença dos seus educandos em qualquer dia letivo.</p>
+                </div>
+            </div>
+
+            <!-- Navegador de data — permite voltar a dias anteriores para justificar
+                 faltas/atrasos que não sejam de hoje. -->
+            <div class="data-nav entrada-cascata">
+                <button type="button" id="diaAnterior" class="dia-nav-btn" aria-label="Dia anterior">‹</button>
+                <div class="data-nav-atual">
+                    <strong id="dataAtualTexto">16/07/2026</strong>
+                    <span id="dataAtualRotulo">Hoje</span>
+                </div>
+                <button type="button" id="diaSeguinte" class="dia-nav-btn" aria-label="Dia seguinte">›</button>
+                <label class="input-data-wrap">
+                    <span>Ir para data</span>
+                    <input type="date" id="seletorData" class="input-data-nav">
+                </label>
+            </div>
+
              <div class="resumo entrada-cascata">
                  <div class="card-resumo">
                    <h3>Presentes</h3>
@@ -108,42 +130,8 @@
                      </tr>
                  </thead>
                 <tbody id="corpoTabela">
-                     <tr data-aluno="João Silvestre" data-turma="9ª A" data-status="presente">
-                        <td>João Silvestre</td>
-                        <td>9ª A</td>
-                        <td>#1245</td>
-                        <td class="col-entrada">07:32</td>
-                        <td class="col-saida">12:15</td>
-                        <td class="col-status"><span class="status-presente">Presente</span></td>
-                        <td class="acoes">
-                            <button class="btn-ver">Ver</button>
-                            <button class="btn-justificar" disabled title="Só é possível justificar faltas ou atrasos">Justificar</button>
-                        </td>
-                     </tr>
-                     <tr data-aluno="Joana Silvestre" data-turma="8ª A" data-status="ausente">
-                        <td>Joana Silvestre</td>
-                        <td>8ª A</td>
-                        <td>#1355</td>
-                        <td class="col-entrada">--</td>
-                        <td class="col-saida">--</td>
-                        <td class="col-status"><span class="status-ausente">Ausente</span></td>
-                        <td class="acoes">
-                            <button class="btn-ver">Ver</button>
-                            <button class="btn-justificar">Justificar</button>
-                        </td>
-                     </tr>
-                     <tr data-aluno="Rafael Silvestre" data-turma="5ª A" data-status="presente">
-                        <td>Rafael Silvestre</td>
-                        <td>5ª A</td>
-                        <td>#1322</td>
-                        <td class="col-entrada">07:20</td>
-                        <td class="col-saida">12:10</td>
-                        <td class="col-status"><span class="status-presente">Presente</span></td>
-                        <td class="acoes">
-                            <button class="btn-ver">Ver</button>
-                            <button class="btn-justificar" disabled title="Só é possível justificar faltas ou atrasos">Justificar</button>
-                        </td>
-                     </tr>
+                     <!-- Gerado por script/presenca.js a partir de PG_DADOS,
+                          consoante a data selecionada no navegador acima. -->
                  </tbody>
              </table>
              </div>
@@ -172,7 +160,7 @@
             <button type="button" class="modal-fechar" id="fecharModalJustificar" aria-label="Fechar">&times;</button>
             <h2 id="modalJustificarTitulo">Justificar registo</h2>
             <p class="justificar-subtitulo">
-                <span id="justificarAluno"></span> · <span id="justificarData">16/07/2026</span> ·
+                <span id="justificarAluno"></span> · <span id="justificarData"></span> ·
                 <span id="justificarEstadoAtual"></span>
             </p>
             <form id="formJustificar" class="form-justificar">
@@ -193,6 +181,7 @@
 
     <script src="script/nav.js" defer></script>
     <script src="script/utils.js" defer></script>
+    <script src="script/dados.js" defer></script>
     <script src="script/presenca.js" defer></script>
 </body>
 </html>
