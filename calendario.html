@@ -39,7 +39,22 @@
             <div class="corpo">
                 <div class="cabecalho">
                     <div class="c c-sem-pesquisa">
-                        <a href="config.html" class="btn-perfil">JS</a>
+                        <div class="perfil-menu">
+                            <button type="button" class="btn-perfil" id="btnPerfilToggle" aria-haspopup="true" aria-expanded="false">JS</button>
+                            <div class="perfil-dropdown" id="perfilDropdown" hidden>
+                                <div class="perfil-dropdown-cabecalho">
+                                    <span class="avatar">JS</span>
+                                    <div class="perfil-dropdown-textos">
+                                        <strong>Joana Santos</strong>
+                                        <span>joana.santos@email.com</span>
+                                    </div>
+                                </div>
+                                <div class="perfil-dropdown-itens">
+                                    <a href="config.html">⚙️ Configurações</a>
+                                    <button type="button" id="btnSair" class="item-sair">↩ Sair</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

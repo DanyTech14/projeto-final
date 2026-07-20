@@ -40,7 +40,6 @@
     color: var(--azul-escuro);
 }
 
-/* Paginação */
 .paginacao{
     display: flex;
     justify-content: space-between;

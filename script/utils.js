@@ -1,7 +1,8 @@
 /* ==========================================================================
    Presence Guard — Utilitários partilhados
-   Toasts, contagem animada de números e pequenos helpers de DOM.
-   Carregar depois de nav.js e antes do script específico da página.
+   Toasts, contagem animada de números, helpers de DOM e persistência simples
+   em localStorage. Carregar depois de nav.js e antes do script específico
+   da página.
    ========================================================================== */
 
 var PG = (function () {
@@ -103,10 +104,44 @@ var PG = (function () {
         };
     }
 
+    /* ---------- Persistência simples em localStorage ----------
+       Todas as chaves usadas pelo site começam por "pg-" para não colidir
+       com outras aplicações no mesmo domínio. Falha em silêncio (ex: modo
+       privado do browser) para nunca quebrar a funcionalidade da página. */
+    var PREFIXO = "pg-";
+
+    function guardarEstado(chave, valor) {
+        try {
+            localStorage.setItem(PREFIXO + chave, JSON.stringify(valor));
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    function obterEstado(chave, valorPadrao) {
+        try {
+            var bruto = localStorage.getItem(PREFIXO + chave);
+            if (bruto === null) return valorPadrao;
+            return JSON.parse(bruto);
+        } catch (e) {
+            return valorPadrao;
+        }
+    }
+
+    function removerEstado(chave) {
+        try {
+            localStorage.removeItem(PREFIXO + chave);
+        } catch (e) {}
+    }
+
     return {
         toast: toast,
         contarAte: contarAte,
         removerComAnimacao: removerComAnimacao,
-        debounce: debounce
+        debounce: debounce,
+        guardarEstado: guardarEstado,
+        obterEstado: obterEstado,
+        removerEstado: removerEstado
     };
 })();

@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="style/nav.css">
     <link rel="stylesheet" href="style/animations.css">
     <link rel="stylesheet" href="style/config.css">
+    <link rel="stylesheet" href="style/modals.css">
     <script>
         (function () {
             try {
@@ -39,7 +40,21 @@
             <div class="corpo">
                 <div class="cabecalho">
                     <div class="c c-sem-pesquisa">
-                        <span class="btn-perfil btn-perfil-atual" aria-current="page" title="Está aqui">JS</span>
+                        <div class="perfil-menu">
+                            <button type="button" class="btn-perfil btn-perfil-atual" id="btnPerfilToggle" aria-haspopup="true" aria-expanded="false" title="Está aqui">JS</button>
+                            <div class="perfil-dropdown" id="perfilDropdown" hidden>
+                                <div class="perfil-dropdown-cabecalho">
+                                    <span class="avatar">JS</span>
+                                    <div class="perfil-dropdown-textos">
+                                        <strong>Joana Santos</strong>
+                                        <span>joana.santos@email.com</span>
+                                    </div>
+                                </div>
+                                <div class="perfil-dropdown-itens">
+                                    <button type="button" id="btnSair" class="item-sair">↩ Sair</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -84,38 +99,42 @@
                                 </select>
                             </div>
                         </div>
-                        <button class="btn-guardar">Guardar alterações</button>
+                        <button class="btn-guardar" id="btnGuardarPerfil">Guardar alterações</button>
                     </section>
 
                     <section class="painel-config">
                         <h3>Educandos associados</h3>
-                        <div class="lista-educandos">
-                            <div class="educando-item">
+                        <p class="painel-subtitulo">
+                            Os dados dos educandos (nome, turma, cartão) são geridos pela instituição.
+                            Pode solicitar a associação ou remoção de um educando, sujeita a aprovação.
+                        </p>
+                        <div class="lista-educandos" id="listaEducandos">
+                            <div class="educando-item" data-id="joao">
                                 <span class="avatar" style="background:#e4ecf1; color:#2d5064">JS</span>
                                 <div class="educando-info">
                                     <strong>João Silvestre</strong>
                                     <span>9ª A · Cartão #1245</span>
                                 </div>
-                                <button class="btn-remover" aria-label="Remover João Silvestre">Remover</button>
+                                <button class="btn-remover" aria-label="Solicitar remoção de João Silvestre">Solicitar remoção</button>
                             </div>
-                            <div class="educando-item">
+                            <div class="educando-item" data-id="joana">
                                 <span class="avatar" style="background:#f2e6ef; color:#a15b8f">JS</span>
                                 <div class="educando-info">
                                     <strong>Joana Silvestre</strong>
                                     <span>8ª A · Cartão #1355</span>
                                 </div>
-                                <button class="btn-remover" aria-label="Remover Joana Silvestre">Remover</button>
+                                <button class="btn-remover" aria-label="Solicitar remoção de Joana Silvestre">Solicitar remoção</button>
                             </div>
-                            <div class="educando-item">
+                            <div class="educando-item" data-id="rafael">
                                 <span class="avatar" style="background:#e6efe8; color:#4a7c59">RS</span>
                                 <div class="educando-info">
                                     <strong>Rafael Silvestre</strong>
                                     <span>5ª A · Cartão #1322</span>
                                 </div>
-                                <button class="btn-remover" aria-label="Remover Rafael Silvestre">Remover</button>
+                                <button class="btn-remover" aria-label="Solicitar remoção de Rafael Silvestre">Solicitar remoção</button>
                             </div>
                         </div>
-                        <button class="btn-secundario btn-adicionar">+ Adicionar educando</button>
+                        <button class="btn-secundario btn-adicionar">+ Solicitar associação de educando</button>
                     </section>
 
                     <section class="painel-config">
@@ -127,7 +146,7 @@
                                     <p>Receber notificação assim que uma falta for registada</p>
                                 </div>
                                 <label class="toggle">
-                                    <input type="checkbox" checked>
+                                    <input type="checkbox" data-chave="falta" checked>
                                     <span class="toggle-slider"></span>
                                 </label>
                             </div>
@@ -137,7 +156,7 @@
                                     <p>Receber notificação quando houver um atraso na entrada</p>
                                 </div>
                                 <label class="toggle">
-                                    <input type="checkbox" checked>
+                                    <input type="checkbox" data-chave="atraso" checked>
                                     <span class="toggle-slider"></span>
                                 </label>
                             </div>
@@ -147,7 +166,7 @@
                                     <p>Um resumo da assiduidade de todos os educandos, toda segunda-feira</p>
                                 </div>
                                 <label class="toggle">
-                                    <input type="checkbox">
+                                    <input type="checkbox" data-chave="resumo-semanal">
                                     <span class="toggle-slider"></span>
                                 </label>
                             </div>
@@ -157,7 +176,7 @@
                                     <p>Além do email, receber também um SMS em alertas urgentes</p>
                                 </div>
                                 <label class="toggle">
-                                    <input type="checkbox">
+                                    <input type="checkbox" data-chave="sms">
                                     <span class="toggle-slider"></span>
                                 </label>
                             </div>
@@ -169,20 +188,45 @@
                         <div class="form-grelha">
                             <div class="campo">
                                 <label for="senha-atual">Senha atual</label>
-                                <input type="password" id="senha-atual" placeholder="••••••••">
+                                <input type="password" id="senha-atual" placeholder="••••••••" autocomplete="current-password">
                             </div>
+                            <div class="campo"></div>
                             <div class="campo">
                                 <label for="senha-nova">Nova senha</label>
-                                <input type="password" id="senha-nova" placeholder="••••••••">
+                                <input type="password" id="senha-nova" placeholder="••••••••" autocomplete="new-password" minlength="6">
+                            </div>
+                            <div class="campo">
+                                <label for="senha-confirmar">Confirmar nova senha</label>
+                                <input type="password" id="senha-confirmar" placeholder="••••••••" autocomplete="new-password" minlength="6">
                             </div>
                         </div>
-                        <button class="btn-guardar">Atualizar senha</button>
+                        <button class="btn-guardar" id="btnAtualizarSenha">Atualizar senha</button>
                     </section>
 
                 </div>
             </div>
         </header>
     </main>
+
+    <div id="modalSolicitar" class="modal-overlay" hidden>
+        <div class="modal-caixa modal--pedido" role="dialog" aria-modal="true" aria-labelledby="modalSolicitarTitulo">
+            <button type="button" class="modal-fechar" id="fecharModalSolicitar" aria-label="Fechar">&times;</button>
+            <span class="modal-icone">🎫</span>
+            <h2 id="modalSolicitarTitulo">Solicitar associação de educando</h2>
+            <form id="formSolicitar" class="form-justificar">
+                <div class="campo">
+                    <label for="cartaoEducando">Número do cartão fornecido pela escola</label>
+                    <input type="text" id="cartaoEducando" placeholder="Ex: 1288" required>
+                </div>
+                <div class="campo">
+                    <label for="notaEducando">Observação (opcional)</label>
+                    <textarea id="notaEducando" rows="3" placeholder="Ex: matrícula feita esta semana…"></textarea>
+                </div>
+                <button type="submit" class="btn-guardar">Enviar pedido</button>
+                <p class="justificar-nota">O educando só aparece na sua lista depois de a escola confirmar a associação ao cartão.</p>
+            </form>
+        </div>
+    </div>
 
     <script src="script/nav.js" defer></script>
     <script src="script/utils.js" defer></script>

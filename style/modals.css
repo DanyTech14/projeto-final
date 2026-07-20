@@ -1,0 +1,229 @@
+/* ==========================================================================
+   Presence Guard — Modais
+   Estilo partilhado por todos os modais do site (Ver detalhes, Justificar
+   registo, Solicitar associação de educando, Reportar dados incorretos).
+   Carregar depois de base.css e animations.css.
+   ========================================================================== */
+
+.modal-overlay{
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(15, 23, 42, .55);
+    backdrop-filter: blur(2px);
+}
+
+.modal-overlay[hidden]{
+    display: none;
+}
+
+.modal-caixa{
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: #fff;
+    border-radius: 20px;
+    padding: 32px 30px 28px;
+    box-shadow: 0 24px 55px rgba(15, 23, 42, .28);
+}
+
+.modal-caixa::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    border-radius: 20px 20px 0 0;
+    background: var(--dourado);
+}
+
+/* Variantes de cor da barra superior, consoante o propósito do modal —
+   dá uma pista visual imediata sobre o tipo de ação antes de ler o texto. */
+.modal-caixa.modal--alerta::before{ background: #d9534f; }
+.modal-caixa.modal--pedido::before{ background: #1f5fa8; }
+.modal-caixa.modal--info::before{ background: var(--azul-selecionado); }
+
+.modal-icone{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    margin-bottom: 16px;
+    border-radius: 50%;
+    background: #fbe8dd;
+    font-size: 20px;
+}
+
+.modal--alerta .modal-icone{ background: #fcdcdc; }
+.modal--pedido .modal-icone{ background: #e5f0ff; }
+.modal--info .modal-icone{ background: #e4ecf1; }
+
+.modal-caixa h2{
+    color: var(--azul-escuro);
+    margin-bottom: 6px;
+    font-size: 19px;
+    line-height: 1.3;
+}
+
+.modal-fechar{
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: #f2f2f2;
+    color: var(--azul-escuro);
+    font-size: 18px;
+    line-height: 1;
+    transition: var(--transicao);
+}
+
+.modal-fechar:hover{
+    background: #e5e5e5;
+    transform: rotate(90deg);
+}
+
+/* Subtítulo com contexto (aluno, data, estado atual) — usado em Justificar
+   e Reportar. Aparece como pequenos "chips" separados por ponto médio. */
+.justificar-subtitulo{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    margin: 4px 0 22px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--borda);
+    font-size: 13px;
+    color: var(--texto-suave);
+}
+
+/* Lista de detalhes (modal "Ver") */
+.modal-lista{
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    row-gap: 14px;
+    margin-top: 18px;
+}
+
+.modal-lista dt{
+    color: var(--texto-suave);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .4px;
+}
+
+.modal-lista dd{
+    color: #1e293b;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Formulários dentro de modais (Justificar, Solicitar, Reportar) */
+.form-justificar{
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-top: 18px;
+}
+
+.form-justificar .campo{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-justificar label{
+    font-size: 13px;
+    font-weight: 700;
+    color: #475569;
+}
+
+.form-justificar input[type="text"],
+.form-justificar textarea{
+    padding: 11px 14px;
+    border: 1px solid #ddd;
+    border-radius: var(--raio-sm);
+    background: #fbfcfd;
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--azul-escuro);
+    outline: none;
+    transition: var(--transicao);
+}
+
+.form-justificar textarea{
+    resize: vertical;
+    min-height: 92px;
+    line-height: 1.5;
+}
+
+.form-justificar input[type="text"]:focus,
+.form-justificar textarea:focus{
+    border-color: var(--dourado);
+    box-shadow: 0 0 0 3px rgba(222, 184, 135, .25);
+}
+
+.form-justificar input[type="file"]{
+    font-size: 13px;
+    color: #475569;
+    padding: 8px 0;
+}
+
+.campo-ajuda{
+    font-size: 12px;
+    color: var(--texto-fraco);
+    line-height: 1.5;
+}
+
+.form-justificar .btn-guardar{
+    width: 100%;
+    height: 46px;
+    border: none;
+    border-radius: var(--raio-sm);
+    background: var(--azul-escuro);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .3px;
+    transition: var(--transicao-lenta);
+}
+
+.form-justificar .btn-guardar:hover{
+    background: var(--azul-hover);
+    transform: translateY(-2px);
+}
+
+.justificar-nota{
+    display: flex;
+    gap: 6px;
+    align-items: flex-start;
+    margin-top: -4px;
+    font-size: 12px;
+    color: var(--texto-fraco);
+    line-height: 1.5;
+}
+
+.justificar-nota::before{
+    content: "ℹ";
+    flex-shrink: 0;
+    font-size: 13px;
+    color: var(--dourado);
+}
+
+@media (max-width: 480px){
+    .modal-caixa{
+        padding: 26px 20px 22px;
+    }
+}

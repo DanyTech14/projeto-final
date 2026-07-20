@@ -20,7 +20,14 @@
 .painel-config h3{
     font-size: 17px;
     color: var(--azul-escuro);
-    margin-bottom: 22px;
+    margin-bottom: 10px;
+}
+
+.painel-subtitulo{
+    font-size: 13px;
+    color: var(--texto-suave);
+    margin-bottom: 20px;
+    line-height: 1.5;
 }
 
 /* Editor de perfil */
@@ -58,20 +65,33 @@
 }
 
 .campo input,
-.campo select{
-    height: 44px;
+.campo select,
+.campo textarea{
     padding: 0 14px;
     border: 1px solid #ddd;
     border-radius: var(--raio-sm);
     background: #fbfcfd;
     font-size: 14px;
+    font-family: inherit;
     color: var(--azul-escuro);
     outline: none;
     transition: var(--transicao);
 }
 
+.campo input,
+.campo select{
+    height: 44px;
+}
+
+.campo textarea{
+    padding: 10px 14px;
+    resize: vertical;
+    min-height: 80px;
+}
+
 .campo input:focus,
-.campo select:focus{
+.campo select:focus,
+.campo textarea:focus{
     border-color: var(--dourado);
     box-shadow: 0 0 0 3px rgba(222, 184, 135, .25);
 }
@@ -159,11 +179,34 @@
     color: #a31616;
     font-size: 13px;
     font-weight: 700;
+    white-space: nowrap;
     transition: var(--transicao-lenta);
 }
 
-.btn-remover:hover{
+.btn-remover:hover:not(:disabled){
     background: #fcdcdc;
+}
+
+.btn-remover:disabled{
+    border-color: var(--borda-forte);
+    background: #f1f0ee;
+    color: #9a9a95;
+    cursor: not-allowed;
+}
+
+/* Estado "pedido pendente de aprovação" — usado tanto para associação nova
+   como para remoção solicitada. Visualmente distinto (fundo azulado, borda
+   tracejada) para não parecer um educando "normal" já confirmado. */
+.educando-pendente{
+    background: #eef4fb;
+    border: 1px dashed #b9d3ea;
+}
+
+.avatar-pendente{
+    background: #dbe7f5;
+    color: #1f5fa8;
+    font-size: 16px;
+    font-weight: 700;
 }
 
 /* Toggles de notificação */

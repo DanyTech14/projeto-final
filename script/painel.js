@@ -2,7 +2,6 @@
     "use strict";
 
     document.addEventListener("DOMContentLoaded", function () {
-        /* Contagem animada dos números de destaque */
         document.querySelectorAll(".cards .card h2").forEach(function (el) {
             var texto = el.textContent.trim();
             var sufixo = texto.endsWith("%") ? "%" : "";
@@ -13,7 +12,6 @@
             }
         });
 
-        /* Pesquisa em tempo real sobre o resumo de frequência */
         var input = document.querySelector(".cabecalho input");
         var tabela = document.querySelector(".relatorio table tbody");
         if (!input || !tabela) return;

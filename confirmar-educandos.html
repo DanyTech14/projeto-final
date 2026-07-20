@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmar Educandos | Presence Guard</title>
+    <link rel="stylesheet" href="style/base.css">
+    <link rel="stylesheet" href="style/animations.css">
+    <link rel="stylesheet" href="style/modals.css">
+    <link rel="stylesheet" href="style/confirmar.css">
+</head>
+<body>
+    <main class="confirmar-page">
+        <section class="confirmar-card" aria-labelledby="confirmar-title">
+            <div class="confirmar-topo">
+                <span class="confirmar-brand">Presence Guard</span>
+                <h1 id="confirmar-title">Confirme os dados dos seus educandos</h1>
+                <p>
+                    Antes de continuar, verifique se os dados abaixo — fornecidos pela instituição —
+                    estão corretos. Só precisa de fazer isto uma vez.
+                </p>
+            </div>
+
+            <div class="lista-confirmar entrada-cascata" id="listaConfirmar">
+                <div class="confirmar-item" data-id="joao" data-aluno="João Silvestre">
+                    <span class="avatar" style="background:#e4ecf1; color:#2d5064">JS</span>
+                    <div class="confirmar-info">
+                        <strong>João Silvestre</strong>
+                        <span>9ª A · Cartão #1245</span>
+                    </div>
+                    <div class="confirmar-acoes">
+                        <button type="button" class="btn-confirmar">Confirmar dados</button>
+                        <button type="button" class="btn-reportar">Dados errados?</button>
+                    </div>
+                </div>
+
+                <div class="confirmar-item" data-id="joana" data-aluno="Joana Silvestre">
+                    <span class="avatar" style="background:#f2e6ef; color:#a15b8f">JS</span>
+                    <div class="confirmar-info">
+                        <strong>Joana Silvestre</strong>
+                        <span>8ª A · Cartão #1355</span>
+                    </div>
+                    <div class="confirmar-acoes">
+                        <button type="button" class="btn-confirmar">Confirmar dados</button>
+                        <button type="button" class="btn-reportar">Dados errados?</button>
+                    </div>
+                </div>
+
+                <div class="confirmar-item" data-id="rafael" data-aluno="Rafael Silvestre">
+                    <span class="avatar" style="background:#e6efe8; color:#4a7c59">RS</span>
+                    <div class="confirmar-info">
+                        <strong>Rafael Silvestre</strong>
+                        <span>5ª A · Cartão #1322</span>
+                    </div>
+                    <div class="confirmar-acoes">
+                        <button type="button" class="btn-confirmar">Confirmar dados</button>
+                        <button type="button" class="btn-reportar">Dados errados?</button>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" class="btn-continuar" id="btnContinuar" disabled>Continuar para o Painel</button>
+            <p class="confirmar-nota" id="confirmarNota">Confirme os dados de todos os educandos para continuar (0 de 3).</p>
+        </section>
+    </main>
+
+    <div id="modalReportar" class="modal-overlay" hidden>
+        <div class="modal-caixa modal--alerta" role="dialog" aria-modal="true" aria-labelledby="modalReportarTitulo">
+            <button type="button" class="modal-fechar" id="fecharModalReportar" aria-label="Fechar">&times;</button>
+            <span class="modal-icone">⚠️</span>
+            <h2 id="modalReportarTitulo">Reportar dados incorretos</h2>
+            <p class="justificar-subtitulo"><span id="reportarAluno"></span></p>
+            <form id="formReportar" class="form-justificar">
+                <div class="campo">
+                    <label for="reportarDescricao">O que está errado?</label>
+                    <textarea id="reportarDescricao" rows="4" placeholder="Ex: a turma está desatualizada, o nome tem um erro…" required></textarea>
+                </div>
+                <button type="submit" class="btn-guardar">Enviar à secretaria</button>
+                <p class="justificar-nota">A escola vai rever e corrigir os dados. Pode continuar a usar a aplicação enquanto isso.</p>
+            </form>
+        </div>
+    </div>
+
+    <script src="script/utils.js" defer></script>
+    <script src="script/confirmar-educandos.js" defer></script>
+</body>
+</html>

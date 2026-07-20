@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="style/nav.css">
     <link rel="stylesheet" href="style/animations.css">
     <link rel="stylesheet" href="style/presenca.css">
+    <link rel="stylesheet" href="style/modals.css">
     <script>
         (function () {
             try {
@@ -41,7 +42,22 @@
             <div class="cabecalho">
                 <div class="c">
                     <input type="text" id="pesquisaAluno" placeholder="Pesquisar aluno">
-                    <a href="config.html" class="btn-perfil">JS</a>
+                    <div class="perfil-menu">
+                        <button type="button" class="btn-perfil" id="btnPerfilToggle" aria-haspopup="true" aria-expanded="false">JS</button>
+                        <div class="perfil-dropdown" id="perfilDropdown" hidden>
+                            <div class="perfil-dropdown-cabecalho">
+                                <span class="avatar">JS</span>
+                                <div class="perfil-dropdown-textos">
+                                    <strong>Joana Santos</strong>
+                                    <span>joana.santos@email.com</span>
+                                </div>
+                            </div>
+                            <div class="perfil-dropdown-itens">
+                                <a href="config.html">⚙️ Configurações</a>
+                                <button type="button" id="btnSair" class="item-sair">↩ Sair</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -78,6 +94,7 @@
                  <button type="button" id="limparFiltros" class="btn-limpar">Limpar filtros</button>
              </div>
 
+             <div class="tabela-scroll">
              <table class="table-presencas">
                  <thead>
                      <tr>
@@ -100,7 +117,7 @@
                         <td class="col-status"><span class="status-presente">Presente</span></td>
                         <td class="acoes">
                             <button class="btn-ver">Ver</button>
-                            <button class="btn-edt">Editar</button>
+                            <button class="btn-justificar" disabled title="Só é possível justificar faltas ou atrasos">Justificar</button>
                         </td>
                      </tr>
                      <tr data-aluno="Joana Silvestre" data-turma="8ª A" data-status="ausente">
@@ -112,7 +129,7 @@
                         <td class="col-status"><span class="status-ausente">Ausente</span></td>
                         <td class="acoes">
                             <button class="btn-ver">Ver</button>
-                            <button class="btn-edt">Editar</button>
+                            <button class="btn-justificar">Justificar</button>
                         </td>
                      </tr>
                      <tr data-aluno="Rafael Silvestre" data-turma="5ª A" data-status="presente">
@@ -124,23 +141,12 @@
                         <td class="col-status"><span class="status-presente">Presente</span></td>
                         <td class="acoes">
                             <button class="btn-ver">Ver</button>
-                            <button class="btn-edt">Editar</button>
-                        </td>
-                     </tr>
-                     <tr data-aluno="Marta Silvestre" data-turma="9ª A" data-status="atraso">
-                        <td>Marta Silvestre</td>
-                        <td>9ª A</td>
-                        <td>#1411</td>
-                        <td class="col-entrada">07:45</td>
-                        <td class="col-saida">12:20</td>
-                        <td class="col-status"><span class="status-atraso">Atraso</span></td>
-                        <td class="acoes">
-                            <button class="btn-ver">Ver</button>
-                            <button class="btn-edt">Editar</button>
+                            <button class="btn-justificar" disabled title="Só é possível justificar faltas ou atrasos">Justificar</button>
                         </td>
                      </tr>
                  </tbody>
              </table>
+             </div>
 
              <p id="semResultados" class="sem-resultados" hidden>Nenhum aluno encontrado com estes filtros.</p>
         </div>
@@ -158,6 +164,30 @@
                 <dt>Saída</dt><dd id="modalSaida"></dd>
                 <dt>Status</dt><dd id="modalStatus"></dd>
             </dl>
+        </div>
+    </div>
+
+    <div id="modalJustificar" class="modal-overlay" hidden>
+        <div class="modal-caixa" role="dialog" aria-modal="true" aria-labelledby="modalJustificarTitulo">
+            <button type="button" class="modal-fechar" id="fecharModalJustificar" aria-label="Fechar">&times;</button>
+            <h2 id="modalJustificarTitulo">Justificar registo</h2>
+            <p class="justificar-subtitulo">
+                <span id="justificarAluno"></span> · <span id="justificarData">16/07/2026</span> ·
+                <span id="justificarEstadoAtual"></span>
+            </p>
+            <form id="formJustificar" class="form-justificar">
+                <div class="campo">
+                    <label for="justificarMotivo">Motivo</label>
+                    <textarea id="justificarMotivo" rows="4" placeholder="Descreva o motivo da falta ou do atraso…" required></textarea>
+                </div>
+                <div class="campo">
+                    <label for="justificarAnexo">Comprovativo (opcional)</label>
+                    <input type="file" id="justificarAnexo" accept=".pdf,.jpg,.jpeg,.png">
+                    <p class="campo-ajuda">Ex.: declaração médica ou justificação da encarregada de educação. PDF ou imagem, até 5MB.</p>
+                </div>
+                <button type="submit" class="btn-guardar">Enviar justificação</button>
+                <p class="justificar-nota">A justificação fica pendente de aprovação pela escola e não altera o registo apresentado.</p>
+            </form>
         </div>
     </div>
 

@@ -13,12 +13,8 @@
         { id: "rafael", nome: "Rafael Silvestre", iniciais: "RS", cor: "#4a7c59", fundo: "#e6efe8" }
     ];
 
-    /* "Hoje" fictício da aplicação — mantém o mesmo dia usado no resto do site. */
     var HOJE = new Date(2026, 6, 16);
 
-    /* Dados reais (curados) só para Julho/2026, para bater certo com o resto
-       do protótipo. Fora deste mês os registos são gerados de forma
-       determinística, apenas para a navegação parecer viva. */
     var AGREGADO_JULHO_2026 = {
         1: "presente", 2: "presente", 3: "atraso",
         6: "presente", 7: "presente", 8: "presente", 9: "falta", 10: "presente",
@@ -257,8 +253,6 @@
                 pill.classList.add("pill-ativa");
                 pill.setAttribute("aria-selected", "true");
 
-                /* O primeiro pill é sempre "Todos"; os seguintes seguem a
-                   mesma ordem dos ESTUDANTES no HTML. */
                 estado.estudante = indicePill === 0 ? "todos" : (ESTUDANTES[indicePill - 1] || {}).id || "todos";
 
                 renderizarGrelha();
