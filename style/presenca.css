@@ -1,6 +1,6 @@
 /* ==========================================================================
    Presença (presenca.html) — estilos exclusivos desta página.
-   Depende de base.css (variáveis, cabeçalho, resumo, filtros, badges),
+   Depende de base.css (variáveis, resumo, filtros, badges),
    nav.css e modals.css (estilo dos modais).
    ========================================================================== */
 
@@ -47,14 +47,16 @@
 
 /* Larguras fixas por coluna — impede que a tabela mude de forma quando uma
    célula é atualizada (ex.: estado passa a "pendente"). A coluna "Aluno"
-   fica sem largura definida e ocupa o espaço restante. */
+   fica sem largura definida e ocupa o espaço restante.
+   Cartão/Status/Ações foram reduzidas para libertar espaço suficiente para
+   "Entrada" e "Saída" caberem numa só linha no cabeçalho. */
 .table-presencas th:nth-child(1), .table-presencas td:nth-child(1){ width: auto; }
 .table-presencas th:nth-child(2), .table-presencas td:nth-child(2){ width: 90px; }
-.table-presencas th:nth-child(3), .table-presencas td:nth-child(3){ width: 90px; }
-.table-presencas th:nth-child(4), .table-presencas td:nth-child(4){ width: 90px; }
-.table-presencas th:nth-child(5), .table-presencas td:nth-child(5){ width: 90px; }
-.table-presencas th:nth-child(6), .table-presencas td:nth-child(6){ width: 170px; }
-.table-presencas th:nth-child(7), .table-presencas td:nth-child(7){ width: 230px; }
+.table-presencas th:nth-child(3), .table-presencas td:nth-child(3){ width: 80px; }
+.table-presencas th:nth-child(4), .table-presencas td:nth-child(4){ width: 110px; }
+.table-presencas th:nth-child(5), .table-presencas td:nth-child(5){ width: 110px; }
+.table-presencas th:nth-child(6), .table-presencas td:nth-child(6){ width: 150px; }
+.table-presencas th:nth-child(7), .table-presencas td:nth-child(7){ width: 210px; }
 
 .table-presencas th:nth-child(4),
 .table-presencas th:nth-child(5),
@@ -128,13 +130,17 @@
 }
 
 /* Coluna de estado — badge principal + (opcionalmente) a tag de pendente
-   por baixo, sempre centrados e com espaçamento consistente. */
+   por baixo. Não usar display:flex diretamente no <td>: o browser gera
+   uma célula anónima à volta dele para manter a tabela válida, o que
+   quebra o vertical-align: middle herdado de .table-presencas td e faz o
+   conteúdo desalinhar-se em relação às outras colunas. Centrar apenas com
+   text-align e deixar os elementos internos como inline-flex. */
 .col-status{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
+    text-align: center;
+}
+
+.col-status > *{
+    display: inline-flex;
 }
 
 .tag-pendente{
@@ -142,6 +148,7 @@
     align-items: center;
     gap: 4px;
     height: auto;
+    margin-top: 6px;
     padding: 3px 10px;
     border-radius: 999px;
     background: #e5f0ff;
@@ -156,14 +163,15 @@
     font-size: 10px;
 }
 
-/* Ações da linha */
+/* Ações da linha — mesma lógica: sem display:flex no <td>, apenas
+   centragem horizontal; os botões alinham-se naturalmente ao centro
+   vertical da célula. */
 .acoes{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 8px;
-    height: 100%;
+    text-align: center;
+}
+
+.acoes button{
+    margin: 4px 4px;
 }
 
 .table-presencas button{
